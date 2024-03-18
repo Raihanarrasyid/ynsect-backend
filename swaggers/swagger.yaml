@@ -90,6 +90,66 @@ paths:
                     type: string
                   data:
                     $ref: "#/components/schemas/User"
+  /carts/{userId}:
+    get:
+      summary: Get cart by user id
+      description: Get cart by user id
+      tags:
+        - Cart API
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: user id
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Success get cart by user id"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Cart"
+    put:
+      summary: Update cart by user id
+      description: Update cart by user id
+      tags:
+        - Cart API
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: user id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cart"
+      responses:
+        "200":
+          description: "Success update cart by user id"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Cart"
+
   /products:
     get:
       summary: Get all products
