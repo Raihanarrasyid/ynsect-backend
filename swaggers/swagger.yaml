@@ -2,7 +2,10 @@ openapi: 3.0.0
 
 info:
   title: Ynsect RESTful API
-  description: API for Ynsect RESTful API
+  description: |-
+    This is Ynsect temporary RESTful API
+    API functionality might change in the future
+
   version: 1.0.0
   contact:
     name: raihan
