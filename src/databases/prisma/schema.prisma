@@ -14,10 +14,10 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(cuid())
+  id       Int       @id @default(autoincrement())
   email    String    @unique
   name     String
-  noTelp   String?
+  noTelp   String?   @unique
   alamat   String?
   carts    Cart[]
   orders   Order[]
@@ -28,7 +28,7 @@ model User {
 }
 
 model Product {
-  id          String  @id @default(cuid())
+  id          Int     @id @default(autoincrement())
   name        String
   price       Int
   stock       Int
@@ -37,28 +37,28 @@ model Product {
 }
 
 model Cart {
-  id        String  @id @default(cuid())
-  userId    String
+  id        Int     @id @default(autoincrement())
+  userId    Int
   user      User    @relation(fields: [userId], references: [id])
-  productId String
+  productId Int
   product   Product @relation(fields: [productId], references: [id])
   quantity  Int
   Order     Order[]
 }
 
 model Order {
-  id         String @id @default(cuid())
-  userId     String
+  id         Int    @id @default(autoincrement())
+  userId     Int
   user       User   @relation(fields: [userId], references: [id])
-  cartId     String
+  cartId     Int
   cart       Cart   @relation(fields: [cartId], references: [id])
   totalPrice Int
   status     String
 }
 
 model Forum {
-  id       String    @id @default(cuid())
-  userId   String
+  id       Int       @id @default(autoincrement())
+  userId   Int
   user     User      @relation(fields: [userId], references: [id])
   content  String
   comments Comment[]
@@ -67,27 +67,27 @@ model Forum {
 }
 
 model Comment {
-  id      String @id @default(cuid())
-  userId  String
+  id      Int    @id @default(autoincrement())
+  userId  Int
   user    User   @relation(fields: [userId], references: [id])
-  forumId String
+  forumId Int
   forum   Forum  @relation(fields: [forumId], references: [id])
   content String
 }
 
 model Saved {
-  id      String  @id @default(cuid())
-  userId  String
+  id      Int     @id @default(autoincrement())
+  userId  Int
   user    User    @relation(fields: [userId], references: [id])
-  forumId String
+  forumId Int
   forum   Forum   @relation(fields: [forumId], references: [id])
   status  Boolean
 }
 
 model Like {
-  id      String @id @default(cuid())
-  userId  String
-  user    User   @relation(fields: [userId], references: [id])
-  forumId String
-  forum   Forum  @relation(fields: [forumId], references: [id])
+  id      Int   @id @default(autoincrement())
+  userId  Int
+  user    User  @relation(fields: [userId], references: [id])
+  forumId Int
+  forum   Forum @relation(fields: [forumId], references: [id])
 }
