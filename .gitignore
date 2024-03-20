@@ -3,4 +3,4 @@ node_modules
 dist
 coverages
 images
-prisma/migrations
+src/databases/prisma/migrations
