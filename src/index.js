@@ -1,13 +1,13 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
-const UserRouter = require("./routes/route.user");
 const port = process.env.PORT || 3000;
+const UserRouter = require('./routes/route.user');
 
 app.use(bodyParser.json());
-app.use("/api", UserRouter);
+app.use('/api', UserRouter);
 
 app.listen(port, () => {
-  console.log("Server aktif");
+  console.log('Server aktif');
   console.log(`http://localhost:${port}`);
 });
