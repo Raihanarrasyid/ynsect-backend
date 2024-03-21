@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --watch src/index.js"
+    "start": "node --watch src/index.js",
+    "create": "node src/helpers/helper.generator.js create"
   },
   "repository": {
     "type": "git",
