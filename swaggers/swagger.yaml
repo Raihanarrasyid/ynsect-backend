@@ -92,6 +92,27 @@ paths:
                     $ref: "#/components/schemas/User"
   
   /carts:
+    get:
+      summary: Get all carts
+      description: Get all carts
+      tags:
+        - Cart API
+      responses:
+        "200":
+          description: "Success get all carts"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Cart"
     post:
       summary: Create cart
       description: Create cart
