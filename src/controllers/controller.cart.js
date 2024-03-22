@@ -1,7 +1,8 @@
 // const UserModel = require('../models/model.user');
 // const user = new UserModel();
 
-const cart = require('../models/model.cart');
+const CartModel = require('../models/model.cart');
+const cart = new CartModel();
 const HelperError = require('../helpers/helper.error');
 
 class CartController {
