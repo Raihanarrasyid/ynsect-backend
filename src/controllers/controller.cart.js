@@ -14,7 +14,7 @@ class CartController {
                 data: result
             });
         } catch (error) {
-            return error.InternalServerError(req, res, error.message);
+            return HelperError.InternalServerError(req, res, error.message);
         }
     }
 
@@ -28,7 +28,7 @@ class CartController {
                 data: result
             });
         } catch (error) {
-            return error.InternalServerError(req, res, error.message);
+            return HelperError.InternalServerError(req, res, error.message);
         }
     }  
 
@@ -43,7 +43,7 @@ class CartController {
                 data: result
             });
         } catch (error) {
-            return error.InternalServerError(req, res, error.message);
+            return HelperError.InternalServerError(req, res, error.message);
         }
     }
 
@@ -57,7 +57,7 @@ class CartController {
                 data: result
             });
         } catch (error) {
-            return error.InternalServerError(req, res, error.message);
+            return HelperError.InternalServerError(req, res, error.message);
         }
     }
 }
