@@ -23,26 +23,22 @@ class CartModel {
     });
   }
 
-  async update(cartId, data) {
-    return await prisma.cart.update({
-      where: {
-        id: parseInt(cartId)
-      },
-      data: data
-    });
-  }
-
-  async getById(cartId) {
-    return await prisma.cart.findUnique({
-      where: {
-        id: parseInt(cartId)
+  async addProductToCart(userId, data) {
+    return await prisma.cart.create({
+      data: {
+        userId: parseInt(userId),
+        productId: parseInt(data.productId),
+        quantity: parseInt(data.quantity)
       }
     });
   }
 
-  async create(data) {
-    return await prisma.cart.create({
-      data: data
+  async deleteProductFromCart(userId, productId) {
+    return await prisma.cart.delete({
+      where: {
+        userId: parseInt(userId),
+        productId: parseInt(productId)
+      }
     });
   }
 }
