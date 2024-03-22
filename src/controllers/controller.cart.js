@@ -4,13 +4,13 @@
 const CartModel = require('../models/model.cart');
 const cart = new CartModel();
 const HelperError = require('../helpers/helper.error');
-const response = require('../helpers/helper.response');
+const responseHelper = require('../helpers/helper.response');
 
 class CartController {
   static async getCarts(req, res) {
     try {
       const result = await cart.getAll();
-      return response(res, 200, 'success', result);
+      return responseHelper(res, 200, 'success', result);
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }
@@ -20,7 +20,7 @@ class CartController {
     try {
       const userId = parseInt(req.params.userId);
       const result = cart.getByUserId(userId);
-      return response(res, 200, 'success', result);
+      return responseHelper(res, 200, 'success', result);
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }
@@ -31,7 +31,7 @@ class CartController {
       const userId = parseInt(req.params.userId);
       const data = req.body;
       const result = cart.updateByUserId(userId, data);
-      return response(res, 200, 'success', result);
+      return responseHelper(res, 200, 'success', result);
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }
@@ -41,7 +41,7 @@ class CartController {
     try {
       const data = req.body;
       const result = cart.create(data);
-      return response(res, 201, 'success', result);
+      return responseHelper(res, 201, 'success', result);
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }

@@ -1,15 +1,12 @@
 const UserModel = require('../models/model.user');
 const user = new UserModel();
+const responseHelper = require('../helpers/helper.response');
 
 class UserController {
   static async getUsers(req, res) {
     try {
       const results = await user.getAll();
-      return res.status(200).json({
-        code: 200,
-        status: 'success',
-        data: results
-      });
+      return responseHelper(res, 200, 'success', results);
     } catch (error) {
       return res.status(500).json({
         code: 500,
@@ -23,11 +20,7 @@ class UserController {
     try {
       const userId = parseInt(req.params.userId);
       const results = await user.getById(userId);
-      return res.status(200).json({
-        code: 200,
-        status: 'success',
-        data: results
-      });
+      return responseHelper(res, 200, 'success', results);
     } catch (error) {
       return res.status(500).json({
         code: 500,
@@ -41,11 +34,7 @@ class UserController {
     try {
       const data = req.body;
       const results = await user.create(data);
-      return res.status(201).json({
-        code: 201,
-        status: 'success',
-        data: results
-      });
+      return responseHelper(res, 201, 'success', results);
     } catch (error) {
       return res.status(500).json({
         code: 500,
