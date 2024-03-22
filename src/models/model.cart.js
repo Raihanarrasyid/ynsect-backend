@@ -7,7 +7,7 @@ class CartModel {
   }
 
   async getByUserId(userId) {
-    return await prisma.cart.findOne({
+    return await prisma.cart.findMany({
       where: {
         userId: parseInt(userId)
       }
