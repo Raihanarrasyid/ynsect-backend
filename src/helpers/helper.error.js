@@ -4,7 +4,11 @@ class ErrorHelper {
   };
 
   static InternalServerError = (req, res, message) => {
-    // Implement here
+    return res.status(500).json({
+      code: 500,
+      status: 'error',
+      message: message
+    });
   };
 
   static BadRequestError = (req, res, message) => {
@@ -19,3 +23,5 @@ class ErrorHelper {
     // Implement here
   };
 }
+
+export default ErrorHelper;

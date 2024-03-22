@@ -2,7 +2,7 @@
 // const user = new UserModel();
 
 import cart from "../models/model.cart";
-import error from "../helpers/helper.error";
+import HelperError from "../helpers/helper.error";
 
 class CartController {
     static async getCarts(req, res) {
@@ -61,3 +61,5 @@ class CartController {
         }
     }
 }
+
+export default CartController;
