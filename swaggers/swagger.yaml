@@ -447,6 +447,7 @@ paths:
                     type: string
                   data:
                     $ref: "#/components/schemas/Comments"
+  /comments/{forumId}/{commentId}:
     delete:
       summary: Delete comments
       description: Delete comments
@@ -457,6 +458,12 @@ paths:
           in: path
           required: true
           description: forum id
+          schema:
+            type: string
+        - name: commentId
+          in: path
+          required: true
+          description: comment id
           schema:
             type: string
       responses:
@@ -473,6 +480,7 @@ paths:
                     type: string
                   data:
                     $ref: "#/components/schemas/Comments"
+
   /saved/{userId}:
     get:
       summary: Get saved forums by user id
