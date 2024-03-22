@@ -14,12 +14,13 @@ class CartModel {
     });
   }
 
-  async updateByUserId(userId, data) {
+  async updateByUserIdandProductId(userId, productId, quantity) {
     return await prisma.cart.update({
       where: {
-        userId: parseInt(userId)
+        userId: parseInt(userId),
+        productId: parseInt(productId)
       },
-      data: data
+      quantity: quantity
     });
   }
 
@@ -29,6 +30,14 @@ class CartModel {
         userId: parseInt(userId),
         productId: parseInt(data.productId),
         quantity: parseInt(data.quantity)
+      }
+    });
+  }
+
+  async deleteCartByUserId(userId) {
+    return await prisma.cart.deleteMany({
+      where: {
+        userId: parseInt(userId)
       }
     });
   }
