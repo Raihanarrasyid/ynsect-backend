@@ -47,4 +47,4 @@ class CartModel {
   }
 }
 
-export default CartModel;
+module.exports = CartModel;

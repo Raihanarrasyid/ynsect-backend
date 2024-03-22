@@ -24,4 +24,4 @@ class ErrorHelper {
   };
 }
 
-export default ErrorHelper;
+module.exports = ErrorHelper;
