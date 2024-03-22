@@ -90,6 +90,33 @@ paths:
                     type: string
                   data:
                     $ref: "#/components/schemas/User"
+  
+  /carts:
+    post:
+      summary: Create cart
+      description: Create cart
+      tags:
+        - Cart API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cart"
+      responses:
+        "200":
+          description: "Success create cart"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Cart"
   /carts/{userId}:
     get:
       summary: Get cart by user id
@@ -149,7 +176,7 @@ paths:
                     type: string
                   data:
                     $ref: "#/components/schemas/Cart"
-
+ 
   /products:
     get:
       summary: Get all products
@@ -199,6 +226,7 @@ paths:
                     type: string
                   data:
                     $ref: "#/components/schemas/Product"
+ 
   /forums:
     get:
       summary: Get all forums
@@ -273,6 +301,7 @@ paths:
                     type: string
                   data:
                     $ref: "#/components/schemas/Forum"
+ 
   /likes:
     post:
       tags:
@@ -354,6 +383,7 @@ paths:
                     type: string
                   data:
                     $ref: "#/components/schemas/Likes"
+ 
   /comments/{forumId}:
     get:
       summary: Get comments by forum id
