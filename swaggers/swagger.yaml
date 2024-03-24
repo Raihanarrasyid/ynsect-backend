@@ -49,7 +49,7 @@ paths:
           required: true
           description: user id
           schema:
-            type: string
+            type: number
       responses:
         "200":
           description: "Success get user by id"
@@ -91,32 +91,6 @@ paths:
                   data:
                     $ref: "#/components/schemas/User"
   
-  /carts:
-    post:
-      summary: Create cart
-      description: Create cart
-      tags:
-        - Cart API
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Cart"
-      responses:
-        "200":
-          description: "Success create cart"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                  status:
-                    type: string
-                  data:
-                    $ref: "#/components/schemas/Cart"
   /carts/{userId}:
     get:
       summary: Get cart by user id
@@ -129,42 +103,10 @@ paths:
           required: true
           description: user id
           schema:
-            type: string
+            type: number
       responses:
         "200":
           description: "Success get cart by user id"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                  status:
-                    type: string
-                  data:
-                    $ref: "#/components/schemas/Cart"
-    put:
-      summary: Update cart by user id
-      description: Update cart by user id
-      tags:
-        - Cart API
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          description: user id
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Cart"
-      responses:
-        "200":
-          description: "Success update cart by user id"
           content:
             application/json:
               schema:
@@ -187,7 +129,7 @@ paths:
           required: true
           description: user id
           schema:
-            type: string
+            type: number
       responses:
         "200":
           description: "Success delete cart by user id"
@@ -201,11 +143,13 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Cart"
-  /carts/{userId}/{productId}:
-    put:
-      summary: Change quantity of product in cart
-      description: Change quantity of product in cart
+                    type: object
+                    properties:
+                      message:
+                        type: string
+    post:
+      summary: update or add product to cart with more functionality
+      description: update or add product to cart with more functionality
       tags:
         - Cart API
       parameters:
@@ -214,13 +158,7 @@ paths:
           required: true
           description: user id
           schema:
-            type: string
-        - name: productId
-          in: path
-          required: true
-          description: product id
-          schema:
-            type: string
+            type: number
       requestBody:
         required: true
         content:
@@ -228,11 +166,13 @@ paths:
             schema:
               type: object
               properties:
+                productId:
+                  type: number
                 quantity:
                   type: number
       responses:
         "200":
-          description: "Success change quantity of product in cart"
+          description: "Success update or add product to cart with more functionality"
           content:
             application/json:
               schema:
@@ -244,9 +184,10 @@ paths:
                     type: string
                   data:
                     $ref: "#/components/schemas/Cart"
-    delete:
-      summary: Delete product in cart
-      description: Delete product in cart
+  /carts/{userId}/add:
+    post:
+      summary: add one product to cart
+      description: add one product to cart
       tags:
         - Cart API
       parameters:
@@ -255,16 +196,19 @@ paths:
           required: true
           description: user id
           schema:
-            type: string
-        - name: productId
-          in: path
-          required: true
-          description: product id
-          schema:
-            type: string
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: number
       responses:
         "200":
-          description: "Success delete product in cart"
+          description: "Success add one product to cart"
           content:
             application/json:
               schema:
@@ -275,7 +219,49 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Cart"
+                    type: object
+                    properties:
+                      message:
+                        type: string
+  /carts/{userId}/decrease:
+    post:
+      summary: decrease one product from cart
+      description: decrease one product from cart
+      tags:
+        - Cart API
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: user id
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: number
+      responses:
+        "200":
+          description: "Success decrease one product from cart"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
   /products:
     get:
       summary: Get all products
@@ -310,7 +296,7 @@ paths:
           required: true
           description: product id
           schema:
-            type: string
+            type: number
       responses:
         "200":
           description: "Success get product by id"
@@ -385,7 +371,7 @@ paths:
           required: true
           description: forum id
           schema:
-            type: string
+            type: number
       responses:
         "200":
           description: "Success get forum by id"
@@ -439,7 +425,7 @@ paths:
           required: true
           description: forum id
           schema:
-            type: string
+            type: number
       responses:
         "200":
           description: "Success get likes by forum id"
@@ -467,7 +453,7 @@ paths:
           required: true
           description: forum id
           schema:
-            type: string
+            type: number
       responses:
         "200":
           description: "Success delete likes"
@@ -495,7 +481,7 @@ paths:
           required: true
           description: forum id
           schema:
-            type: string
+            type: number
       responses:
         "200":
           description: "Success get comments by forum id"
@@ -523,7 +509,7 @@ paths:
           required: true
           description: forum id
           schema:
-            type: string
+            type: number
       requestBody:
         required: true
         content:
@@ -555,7 +541,7 @@ paths:
           required: true
           description: forum id
           schema:
-            type: string
+            type: number
       requestBody:
         required: true
         content:
@@ -588,13 +574,13 @@ paths:
           required: true
           description: forum id
           schema:
-            type: string
+            type: number
         - name: commentId
           in: path
           required: true
           description: comment id
           schema:
-            type: string
+            type: number
       responses:
         "200":
           description: "Success delete comments"
@@ -622,7 +608,7 @@ paths:
           required: true
           description: user id
           schema:
-            type: string
+            type: number
       responses:
         "200":
           description: "Success get saved forums by user id"
@@ -650,7 +636,7 @@ paths:
           required: true
           description: user id
           schema:
-            type: string
+            type: number
       requestBody:
         required: true
         content:
@@ -683,13 +669,13 @@ paths:
           required: true
           description: user id
           schema:
-            type: string
+            type: number
         - name: forumId
           in: path
           required: true
           description: forum id
           schema:
-            type: string
+            type: number
       responses:
         "200":
           description: "Success delete saved forums"
@@ -710,19 +696,19 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: number
         question:
           type: string
-        user_id:
+        userId:
           type: string
     Saved:
       type: object
       properties:
         id:
+          type: number
+        userId:
           type: string
-        user_id:
-          type: string
-        forum_id:
+        forumId:
           type: string
         status:
           type: boolean
@@ -730,10 +716,10 @@ components:
       type: object
       properties:
         id:
+          type: number
+        userId:
           type: string
-        user_id:
-          type: string
-        forum_id:
+        forumId:
           type: string
         comment:
           type: string
@@ -741,16 +727,16 @@ components:
       type: object
       properties:
         id:
+          type: number
+        userId:
           type: string
-        user_id:
-          type: string
-        forum_id:
+        forumId:
           type: string
     User:
       type: object
       properties:
         id:
-          type: string
+          type: number
         name:
           type: string
         email:
@@ -763,7 +749,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: number
         name:
           type: string
         price:
@@ -776,8 +762,8 @@ components:
       type: object
       properties:
         id:
-          type: string
-        user_id:
+          type: number
+        userId:
           type: string
         products:
           type: array
@@ -791,8 +777,8 @@ components:
       type: object
       properties:
         id:
-          type: string
-        user_id:
+          type: number
+        userId:
           type: string
         products:
           type: array
