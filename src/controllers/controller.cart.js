@@ -1,64 +1,62 @@
 const CartModel = require('../models/model.cart');
 const cart = new CartModel();
-const ProductModel = require('../models/model.product');
-const product = new ProductModel();
 const HelperError = require('../helpers/helper.error');
 const responseHelper = require('../helpers/helper.response');
+const cartHelper = require('../helpers/helper.cart');
 
 class CartController {
-  static async getAll(req, res) {
-    try {
-      const result = await cart.getAll();
-      return responseHelper(res, 200, 'success', result);
-    } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
-    }
-  }
-
   static async getCartByUserId(req, res) {
     try {
       const userId = parseInt(req.params.userId);
       const result = await cart.getByUserId(userId);
-      const cartResponse = {
-        userId: userId,
-        products: [],
-        total_items: 0,
-        total_price: 0
-      };
-      for (let i = 0; i < result.length; i++) {
-        const productData = await product.getById(result[i].productId);
-        cartResponse.products.push({
-          id: result[i].product_id,
-          name: productData.name,
-          quantity: result[i].quantity,
-          price: productData.price,
-          description: productData.description
-        });
-        cartResponse.total_items += result[i].quantity;
-        cartResponse.total_price += result[i].quantity * productData.price;
-      }
+      const cartResponse = await cartHelper(result, userId);
       return responseHelper(res, 200, 'success', cartResponse);
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }
   }
 
-  static async updateCartByUserId(req, res) {
+  static async addOneProductToCart(req, res) {
     try {
-      const userId = parseInt(req.params.userId);
-      const data = req.body;
-      const result = cart.updateByUserId(userId, data);
-      return responseHelper(res, 200, 'success', result);
+      const userId = req.params.userId;
+      const productId = req.body.productId;
+      await cart.addOneProductToCart(userId, productId);
+      return responseHelper(res, 200, 'success', { message: 'Product added to cart' });
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }
   }
 
-  static async createCart(req, res) {
+  static async decreaseProductQuantity(req, res) {
     try {
-      const data = req.body;
-      const result = cart.create(data);
-      return responseHelper(res, 201, 'success', result);
+      const userId = req.params.userId;
+      const productId = req.body.productId;
+      await cart.decreaseProductQuantity(userId, productId);
+      return responseHelper(res, 200, 'success', { message: 'Product decreased from cart' });
+    } catch (error) {
+      return HelperError.InternalServerError(req, res, error.message);
+    }
+  }
+
+  static async updateOrAddProductToCart(req, res) {
+    try {
+      const userId = parseInt(req.params.userId);
+      const productId = parseInt(req.body.productId);
+      const quantity = parseInt(req.body.quantity);
+      await cart.addProductToCart(userId, { productId, quantity });
+      const cartUser = await cart.getByUserId(userId);
+      const cartResponse = await cartHelper(cartUser, userId);
+      return responseHelper(res, 200, 'success', cartResponse);
+    } catch (error) {
+      return HelperError.InternalServerError(req, res, error.message);
+    }
+  }
+
+  static async deleteCartByUserId(req, res) {
+    try {
+      const userId = parseInt(req.params.userId);
+      await cart.deleteCartByUserId(userId);
+      return responseHelper(res, 200, 'success', { message: 'Cart deleted' });
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }

@@ -31,6 +31,18 @@ class CartModel {
   }
 
   async addProductToCart(userId, data) {
+    const result = await prisma.cart.findFirst({
+      where: {
+        userId: parseInt(userId),
+        productId: parseInt(data.productId)
+      }
+    });
+
+    if (result) {
+      const quantity = result.quantity + parseInt(data.quantity);
+      return await this.updateByUserIdandProductId(userId, data.productId, quantity);
+    }
+
     return await prisma.cart.create({
       data: {
         userId: parseInt(userId),
@@ -40,19 +52,48 @@ class CartModel {
     });
   }
 
-  async deleteCartByUserId(userId) {
-    return await prisma.cart.deleteMany({
+  async addOneProductToCart(userId, productId) {
+    const result = await prisma.cart.findFirst({
       where: {
-        userId: parseInt(userId)
+        userId: parseInt(userId),
+        productId: parseInt(productId)
+      }
+    });
+
+    if (result) {
+      const quantity = result.quantity + 1;
+      return await this.updateByUserIdandProductId(userId, productId, quantity);
+    }
+
+    return await prisma.cart.create({
+      data: {
+        userId: parseInt(userId),
+        productId: parseInt(productId),
+        quantity: 1
       }
     });
   }
 
-  async deleteProductFromCart(userId, productId) {
-    return await prisma.cart.delete({
+  async deceaseProductQuantity(userId, productId) {
+    const result = await prisma.cart.findFirst({
       where: {
         userId: parseInt(userId),
         productId: parseInt(productId)
+      }
+    });
+
+    if (result) {
+      const quantity = result.quantity - 1;
+      return await this.updateByUserIdandProductId(userId, productId, quantity);
+    }
+
+    return null;
+  }
+
+  async deleteCartByUserId(userId) {
+    return await prisma.cart.deleteMany({
+      where: {
+        userId: parseInt(userId)
       }
     });
   }
