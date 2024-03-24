@@ -33,3 +33,5 @@ class ForumController {
     }
   }
 }
+
+module.exports = ForumController;
