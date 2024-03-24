@@ -32,7 +32,6 @@ class CartController {
           name: productData.name,
           quantity: result[i].quantity,
           price: productData.price,
-          stock: productData.stock,
           description: productData.description
         });
         cartResponse.total_items += result[i].quantity;
