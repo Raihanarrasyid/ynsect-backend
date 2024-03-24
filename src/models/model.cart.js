@@ -2,25 +2,31 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 class CartModel {
-  async getAll() {
-    return await prisma.cart.findMany();
-  }
-
   async getByUserId(userId) {
-    return await prisma.cart.findMany({
+    const cart = await prisma.cart.findMany({
       where: {
         userId: parseInt(userId)
       }
     });
+    return cart;
   }
 
   async updateByUserIdandProductId(userId, productId, quantity) {
+    if (quantity === 0) {
+      return await prisma.cart.delete({
+        where: {
+          userId: parseInt(userId),
+          productId: parseInt(productId)
+        }
+      });
+    }
+
     return await prisma.cart.update({
       where: {
         userId: parseInt(userId),
         productId: parseInt(productId)
       },
-      quantity: quantity
+      data: { quantity: quantity }
     });
   }
 

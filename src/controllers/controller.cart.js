@@ -1,13 +1,12 @@
-// const UserModel = require('../models/model.user');
-// const user = new UserModel();
-
 const CartModel = require('../models/model.cart');
 const cart = new CartModel();
+const ProductModel = require('../models/model.product');
+const product = new ProductModel();
 const HelperError = require('../helpers/helper.error');
 const responseHelper = require('../helpers/helper.response');
 
 class CartController {
-  static async getCarts(req, res) {
+  static async getAll(req, res) {
     try {
       const result = await cart.getAll();
       return responseHelper(res, 200, 'success', result);
@@ -19,8 +18,27 @@ class CartController {
   static async getCartByUserId(req, res) {
     try {
       const userId = parseInt(req.params.userId);
-      const result = cart.getByUserId(userId);
-      return responseHelper(res, 200, 'success', result);
+      const result = await cart.getByUserId(userId);
+      const cartResponse = {
+        userId: userId,
+        products: [],
+        total_items: 0,
+        total_price: 0
+      };
+      for (let i = 0; i < result.length; i++) {
+        const productData = await product.getById(result[i].productId);
+        cartResponse.products.push({
+          id: result[i].product_id,
+          name: productData.name,
+          quantity: result[i].quantity,
+          price: productData.price,
+          stock: productData.stock,
+          description: productData.description
+        });
+        cartResponse.total_items += result[i].quantity;
+        cartResponse.total_price += result[i].quantity * productData.price;
+      }
+      return responseHelper(res, 200, 'success', cartResponse);
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }

@@ -92,27 +92,6 @@ paths:
                     $ref: "#/components/schemas/User"
   
   /carts:
-    get:
-      summary: Get all carts
-      description: Get all carts
-      tags:
-        - Cart API
-      responses:
-        "200":
-          description: "Success get all carts"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                  status:
-                    type: string
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Cart"
     post:
       summary: Create cart
       description: Create cart
@@ -197,7 +176,106 @@ paths:
                     type: string
                   data:
                     $ref: "#/components/schemas/Cart"
- 
+    delete:
+      summary: Delete cart by user id
+      description: Delete cart by user id
+      tags:
+        - Cart API
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: user id
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Success delete cart by user id"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Cart"
+  /carts/{userId}/{productId}:
+    put:
+      summary: Change quantity of product in cart
+      description: Change quantity of product in cart
+      tags:
+        - Cart API
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: user id
+          schema:
+            type: string
+        - name: productId
+          in: path
+          required: true
+          description: product id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: number
+      responses:
+        "200":
+          description: "Success change quantity of product in cart"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Cart"
+    delete:
+      summary: Delete product in cart
+      description: Delete product in cart
+      tags:
+        - Cart API
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: user id
+          schema:
+            type: string
+        - name: productId
+          in: path
+          required: true
+          description: product id
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Success delete product in cart"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Cart"
   /products:
     get:
       summary: Get all products
