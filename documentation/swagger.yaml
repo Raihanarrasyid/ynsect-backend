@@ -22,8 +22,8 @@ paths:
       tags:
         - User API
       responses:
-        "200":
-          description: "Success get all users"
+        '200':
+          description: 'Success get all users'
           content:
             application/json:
               schema:
@@ -36,7 +36,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/User"
+                      $ref: '#/components/schemas/User'
   /users/{userId}:
     get:
       summary: Get user by id
@@ -51,8 +51,8 @@ paths:
           schema:
             type: number
       responses:
-        "200":
-          description: "Success get user by id"
+        '200':
+          description: 'Success get user by id'
           content:
             application/json:
               schema:
@@ -63,7 +63,7 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/User"
+                    $ref: '#/components/schemas/User'
   /users/signup:
     post:
       summary: Signup user
@@ -75,10 +75,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: '#/components/schemas/User'
       responses:
-        "200":
-          description: "Success signup user"
+        '200':
+          description: 'Success signup user'
           content:
             application/json:
               schema:
@@ -89,8 +89,8 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/User"
-  
+                    $ref: '#/components/schemas/User'
+
   /carts/{userId}:
     get:
       summary: Get cart by user id
@@ -105,8 +105,8 @@ paths:
           schema:
             type: number
       responses:
-        "200":
-          description: "Success get cart by user id"
+        '200':
+          description: 'Success get cart by user id'
           content:
             application/json:
               schema:
@@ -117,7 +117,7 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Cart"
+                    $ref: '#/components/schemas/Cart'
     delete:
       summary: Delete cart by user id
       description: Delete cart by user id
@@ -131,8 +131,8 @@ paths:
           schema:
             type: number
       responses:
-        "200":
-          description: "Success delete cart by user id"
+        '200':
+          description: 'Success delete cart by user id'
           content:
             application/json:
               schema:
@@ -171,8 +171,8 @@ paths:
                 quantity:
                   type: number
       responses:
-        "200":
-          description: "Success update or add product to cart with more functionality"
+        '200':
+          description: 'Success update or add product to cart with more functionality'
           content:
             application/json:
               schema:
@@ -183,7 +183,7 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Cart"
+                    $ref: '#/components/schemas/Cart'
   /carts/{userId}/add:
     post:
       summary: add one product to cart
@@ -207,8 +207,8 @@ paths:
                 productId:
                   type: number
       responses:
-        "200":
-          description: "Success add one product to cart"
+        '200':
+          description: 'Success add one product to cart'
           content:
             application/json:
               schema:
@@ -246,8 +246,8 @@ paths:
                 productId:
                   type: number
       responses:
-        "200":
-          description: "Success decrease one product from cart"
+        '200':
+          description: 'Success decrease one product from cart'
           content:
             application/json:
               schema:
@@ -269,8 +269,8 @@ paths:
       tags:
         - Product API
       responses:
-        "200":
-          description: "Success get all products"
+        '200':
+          description: 'Success get all products'
           content:
             application/json:
               schema:
@@ -283,7 +283,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Product"
+                      $ref: '#/components/schemas/Product'
   /products/{productId}:
     get:
       summary: Get product by id
@@ -298,8 +298,8 @@ paths:
           schema:
             type: number
       responses:
-        "200":
-          description: "Success get product by id"
+        '200':
+          description: 'Success get product by id'
           content:
             application/json:
               schema:
@@ -310,8 +310,8 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Product"
- 
+                    $ref: '#/components/schemas/Product'
+
   /forums:
     get:
       summary: Get all forums
@@ -319,8 +319,8 @@ paths:
       tags:
         - Forum API
       responses:
-        "200":
-          description: "Success get all forums"
+        '200':
+          description: 'Success get all forums'
           content:
             application/json:
               schema:
@@ -333,7 +333,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Forum"
+                      $ref: '#/components/schemas/Forum'
     post:
       summary: Create forum
       description: Create forum
@@ -344,10 +344,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Forum"
+              $ref: '#/components/schemas/Forum'
       responses:
-        "200":
-          description: "Success create forum"
+        '200':
+          description: 'Success create forum'
           content:
             application/json:
               schema:
@@ -358,7 +358,7 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Forum"
+                    $ref: '#/components/schemas/Forum'
   /forums/{forumId}:
     get:
       tags:
@@ -373,8 +373,8 @@ paths:
           schema:
             type: number
       responses:
-        "200":
-          description: "Success get forum by id"
+        '200':
+          description: 'Success get forum by id'
           content:
             application/json:
               schema:
@@ -385,8 +385,8 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Forum"
- 
+                    $ref: '#/components/schemas/Forum'
+
   /likes:
     post:
       tags:
@@ -398,10 +398,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Likes"
+              $ref: '#/components/schemas/Likes'
       responses:
-        "200":
-          description: "Success create likes"
+        '200':
+          description: 'Success create likes'
           content:
             application/json:
               schema:
@@ -412,7 +412,7 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Likes"
+                    $ref: '#/components/schemas/Likes'
   /likes/{forumId}:
     get:
       tags:
@@ -427,8 +427,8 @@ paths:
           schema:
             type: number
       responses:
-        "200":
-          description: "Success get likes by forum id"
+        '200':
+          description: 'Success get likes by forum id'
           content:
             application/json:
               schema:
@@ -441,7 +441,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Likes"
+                      $ref: '#/components/schemas/Likes'
     delete:
       summary: Delete likes
       description: Delete likes
@@ -455,8 +455,8 @@ paths:
           schema:
             type: number
       responses:
-        "200":
-          description: "Success delete likes"
+        '200':
+          description: 'Success delete likes'
           content:
             application/json:
               schema:
@@ -467,8 +467,8 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Likes"
- 
+                    $ref: '#/components/schemas/Likes'
+
   /comments/{forumId}:
     get:
       summary: Get comments by forum id
@@ -483,8 +483,8 @@ paths:
           schema:
             type: number
       responses:
-        "200":
-          description: "Success get comments by forum id"
+        '200':
+          description: 'Success get comments by forum id'
           content:
             application/json:
               schema:
@@ -497,7 +497,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Comments"
+                      $ref: '#/components/schemas/Comments'
     post:
       summary: Create comments
       description: Create comments
@@ -515,10 +515,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Comments"
+              $ref: '#/components/schemas/Comments'
       responses:
-        "200":
-          description: "Success create comments"
+        '200':
+          description: 'Success create comments'
           content:
             application/json:
               schema:
@@ -529,7 +529,7 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Comments"
+                    $ref: '#/components/schemas/Comments'
     put:
       summary: Update comments
       description: Update comments
@@ -547,10 +547,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Comments"
+              $ref: '#/components/schemas/Comments'
       responses:
-        "200":
-          description: "Success update comments"
+        '200':
+          description: 'Success update comments'
           content:
             application/json:
               schema:
@@ -561,7 +561,7 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Comments"
+                    $ref: '#/components/schemas/Comments'
   /comments/{forumId}/{commentId}:
     delete:
       summary: Delete comments
@@ -582,8 +582,8 @@ paths:
           schema:
             type: number
       responses:
-        "200":
-          description: "Success delete comments"
+        '200':
+          description: 'Success delete comments'
           content:
             application/json:
               schema:
@@ -594,7 +594,7 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Comments"
+                    $ref: '#/components/schemas/Comments'
 
   /saved/{userId}:
     get:
@@ -610,8 +610,8 @@ paths:
           schema:
             type: number
       responses:
-        "200":
-          description: "Success get saved forums by user id"
+        '200':
+          description: 'Success get saved forums by user id'
           content:
             application/json:
               schema:
@@ -624,7 +624,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Saved"
+                      $ref: '#/components/schemas/Saved'
     post:
       summary: Create saved forums
       description: Create saved forums
@@ -642,10 +642,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Saved"
+              $ref: '#/components/schemas/Saved'
       responses:
-        "200":
-          description: "Success create saved forums"
+        '200':
+          description: 'Success create saved forums'
           content:
             application/json:
               schema:
@@ -656,7 +656,7 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Saved"
+                    $ref: '#/components/schemas/Saved'
   /saved/{userId}/{forumId}:
     delete:
       summary: Delete saved forums by user id and forum id
@@ -677,8 +677,8 @@ paths:
           schema:
             type: number
       responses:
-        "200":
-          description: "Success delete saved forums"
+        '200':
+          description: 'Success delete saved forums'
           content:
             application/json:
               schema:
@@ -689,7 +689,7 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: "#/components/schemas/Saved"
+                    $ref: '#/components/schemas/Saved'
 components:
   schemas:
     Forum:
@@ -761,14 +761,23 @@ components:
     Cart:
       type: object
       properties:
-        id:
-          type: number
         userId:
           type: string
         products:
           type: array
           items:
-            $ref: "#/components/schemas/Product"
+            type: object
+            properties:
+              id:
+                type: number
+              name:
+                type: string
+              price:
+                type: number
+              description:
+                type: string
+              quantity:
+                type: number
         total_items:
           type: number
         total_price:
@@ -783,7 +792,7 @@ components:
         products:
           type: array
           items:
-            $ref: "#/components/schemas/Product"
+            $ref: '#/components/schemas/Product'
         total_items:
           type: number
         total_price:
