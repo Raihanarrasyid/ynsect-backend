@@ -7,7 +7,14 @@ class ForumController {
   static async getAllForum(req, res) {
     try {
       const result = await forum.getAllForum();
-      return responseHelper(res, 200, 'success', result);
+      const forumResponse = result.map((data) => {
+        return {
+          id: data.id,
+          question: data.content,
+          userId: data.userId
+        };
+      });
+      return responseHelper(res, 200, 'success', forumResponse);
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }
