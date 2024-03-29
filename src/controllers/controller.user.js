@@ -34,6 +34,21 @@ class UserController {
       return response.InternalServerError(req, res, error.message);
     }
   }
+
+  static async loginUser(req, res) {
+    try {
+      const data = req.body;
+      const results = await user.getById(data.id);
+      if (results.length === 0) {
+        return response.DataNotFound(req, res, 'Data tidak ditemukan!');
+      }
+      const token = generateToken({ id: results[0].id });
+      results[0].token = token;
+      return response.DataFound(req, res, 'Berhasil login!', results[0]);
+    } catch (error) {
+      return response.InternalServerError(req, res, error.message);
+    }
+  }
 }
 
 module.exports = UserController;
