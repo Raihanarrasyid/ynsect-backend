@@ -15,6 +15,14 @@ class UserModel {
     });
   }
 
+  async getByEmail(email) {
+    return await prisma.user.findUnique({
+      where: {
+        email: email
+      }
+    });
+  }
+
   async create(data) {
     data.password = await bcrypt.hash(data.password, 10);
     return await prisma.user.create({

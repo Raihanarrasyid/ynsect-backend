@@ -44,6 +44,21 @@ class UserController {
       return response.InternalServerError(req, res, error.message);
     }
   }
+
+  static async loginUser(req, res) {
+    try {
+      const data = req.body;
+      const result = user.getByEmail(data.email);
+      if (!result) {
+        return response.NotFound(req, res, 'Email tidak ditemukan!');
+      }
+      const token = generateToken({ id: result.id });
+      result.token = token;
+      return response.DataFound(req, res, 'Berhasil login!', result);
+    } catch (error) {
+      return response.InternalServerError(req, res, error.message);
+    }
+  }
 }
 
 module.exports = UserController;
