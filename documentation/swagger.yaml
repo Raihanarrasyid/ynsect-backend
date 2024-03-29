@@ -431,8 +431,8 @@ paths:
     post:
       tags:
         - Likes API
-      summary: Create likes
-      description: Create likes
+      summary: Create or Delete likes
+      description: Toggle Like or Unlike API
       requestBody:
         required: true
         content:
@@ -482,32 +482,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Likes'
-    delete:
-      summary: Delete likes
-      description: Delete likes
-      tags:
-        - Likes API
-      parameters:
-        - name: forumId
-          in: path
-          required: true
-          description: forum id
-          schema:
-            type: number
-      responses:
-        '200':
-          description: 'Success delete likes'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                  status:
-                    type: string
-                  data:
-                    $ref: '#/components/schemas/Likes'
 
   /comments/{forumId}:
     get:
