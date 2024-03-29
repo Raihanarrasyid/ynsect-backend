@@ -14,6 +14,14 @@ class UserModel {
     });
   }
 
+  async getByEmail(email) {
+    return await prisma.user.findUnique({
+      where: {
+        email: email
+      }
+    });
+  }
+
   async create(data) {
     return await prisma.user.create({
       data: data
