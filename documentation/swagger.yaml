@@ -741,9 +741,9 @@ components:
           type: string
         email:
           type: string
-        no_telp:
+        phoneNumber:
           type: string
-        alamat:
+        address:
           type: string
     Product:
       type: object
