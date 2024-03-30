@@ -81,7 +81,9 @@ paths:
                   type: string
                 email:
                   type: string
-                phoneNumber:
+                password:
+                  type: string
+                phone:
                   type: string
                 address:
                   type: string
@@ -714,16 +716,16 @@ components:
         question:
           type: string
         userId:
-          type: string
+          type: number
     Saved:
       type: object
       properties:
         id:
           type: number
         userId:
-          type: string
+          type: number
         forumId:
-          type: string
+          type: number
         status:
           type: boolean
     Comments:
@@ -732,9 +734,9 @@ components:
         id:
           type: number
         userId:
-          type: string
+          type: number
         forumId:
-          type: string
+          type: number
         comment:
           type: string
     Likes:
@@ -743,9 +745,9 @@ components:
         id:
           type: number
         userId:
-          type: string
+          type: number
         forumId:
-          type: string
+          type: number
     User:
       type: object
       properties:
@@ -755,9 +757,13 @@ components:
           type: string
         email:
           type: string
-        phoneNumber:
+        phone:
           type: string
         address:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
           type: string
     Product:
       type: object
@@ -776,7 +782,7 @@ components:
       type: object
       properties:
         userId:
-          type: string
+          type: number
         products:
           type: array
           items:
@@ -802,7 +808,7 @@ components:
         id:
           type: number
         userId:
-          type: string
+          type: number
         products:
           type: array
           items:

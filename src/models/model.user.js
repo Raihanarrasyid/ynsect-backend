@@ -4,7 +4,17 @@ const bcrypt = require('bcryptjs');
 
 class UserModel {
   async getAll() {
-    return await prisma.user.findMany();
+    return await prisma.user.findMany({
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        phone: true,
+        address: true,
+        createdAt: true,
+        updatedAt: true
+      }
+    });
   }
 
   async getById(userId) {
