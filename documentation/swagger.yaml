@@ -11,7 +11,7 @@ info:
     name: raihan
 
 servers:
-  - url: http://localhost:300/api
+  - url: http://localhost:3000/api
     description: localhost
 
 paths:
