@@ -23,11 +23,11 @@ class UserController {
     }
   }
 
-  static async createUser(req, res) {
+  static async registerUser(req, res) {
     try {
       const data = req.body;
       const result = await user.create(data);
-      return response.DataCreated(req, res, 'Account registered', result);
+      return response.Created(req, res, 'Account registered', result);
     } catch (error) {
       return response.InternalServerError(req, res, error.message);
     }
@@ -39,7 +39,7 @@ class UserController {
       const result = await user.login(data);
       const token = generateToken({ id: result.id });
       result.token = token;
-      return response.DataFound(req, res, 'Login success!', result);
+      return response.DataFound(req, res, 'Login success', result);
     } catch (error) {
       return response.InternalServerError(req, res, error.message);
     }

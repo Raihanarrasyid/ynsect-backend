@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 class UserModel {
   async getAll() {
-    return await prisma.user.findMany({
+    const users = await prisma.user.findMany({
       select: {
         id: true,
         email: true,
@@ -15,22 +15,25 @@ class UserModel {
         updatedAt: true
       }
     });
+    return users;
   }
 
   async getById(userId) {
-    return await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         id: parseInt(userId)
       }
     });
+    return user;
   }
 
   async getByEmail(email) {
-    return await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         email: email
       }
     });
+    return user;
   }
 
   async create(data) {
@@ -41,20 +44,15 @@ class UserModel {
   }
 
   async login(data) {
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
       where: {
         email: data.email
       }
     });
-
-    if (!user) {
-      throw new Error('Akun belum terdaftar');
-    }
-
     const isValid = await bcrypt.compare(data.password, user.password);
 
-    if (!isValid) {
-      throw new Error('Email atau password salah');
+    if (!user || !isValid) {
+      throw new Error('Invalid email or password');
     }
 
     return user;
