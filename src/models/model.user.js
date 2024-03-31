@@ -36,7 +36,7 @@ class UserModel {
     return user;
   }
 
-  async create(data) {
+  async register(data) {
     data.password = await bcrypt.hash(data.password, 10);
     return await prisma.user.create({
       data: data

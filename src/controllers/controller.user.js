@@ -2,6 +2,7 @@ const UserModel = require('../models/model.user');
 const user = new UserModel();
 const response = require('../helpers/helper.error');
 const { generateToken } = require('../helpers/helper.authorization');
+const Validation = require('../helpers/helper.validation');
 
 class UserController {
   static async getUsers(req, res) {
@@ -26,7 +27,11 @@ class UserController {
   static async registerUser(req, res) {
     try {
       const data = req.body;
-      const result = await user.create(data);
+      const { error } = await Validation.registerUser(data);
+      if (error) {
+        return response.BadRequest(req, res, error.details[0].message);
+      }
+      const result = await user.register(data);
       return response.Created(req, res, 'Account registered', result);
     } catch (error) {
       return response.InternalServerError(req, res, error.message);
@@ -36,6 +41,10 @@ class UserController {
   static async loginUser(req, res) {
     try {
       const data = req.body;
+      const { error } = await Validation.loginUser(data);
+      if (error) {
+        return response.BadRequest(req, res, error.details[0].message);
+      }
       const result = await user.login(data);
       const token = generateToken({ id: result.id });
       result.token = token;
