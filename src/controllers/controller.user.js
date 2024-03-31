@@ -7,7 +7,7 @@ class UserController {
   static async getUsers(req, res) {
     try {
       const results = await user.getAll();
-      return response.DataFound(req, res, 'Data ditemukan', results);
+      return response.DataFound(req, res, 'Data found', results);
     } catch (error) {
       return response.InternalServerError(req, res, error.message);
     }
@@ -17,7 +17,7 @@ class UserController {
     try {
       const userId = parseInt(req.params.userId);
       const result = await user.getById(userId);
-      return response.DataFound(req, res, 'Data ditemukan', result);
+      return response.DataFound(req, res, 'Data found', result);
     } catch (error) {
       return response.InternalServerError(req, res, error.message);
     }
@@ -27,7 +27,7 @@ class UserController {
     try {
       const data = req.body;
       const result = await user.create(data);
-      return response.DataCreated(req, res, 'Akun telah didaftarkan', result);
+      return response.DataCreated(req, res, 'Account registered', result);
     } catch (error) {
       return response.InternalServerError(req, res, error.message);
     }
@@ -39,7 +39,7 @@ class UserController {
       const result = await user.login(data);
       const token = generateToken({ id: result.id });
       result.token = token;
-      return response.DataFound(req, res, 'Berhasil login!', result);
+      return response.DataFound(req, res, 'Login success!', result);
     } catch (error) {
       return response.InternalServerError(req, res, error.message);
     }
