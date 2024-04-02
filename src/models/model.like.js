@@ -3,20 +3,20 @@ const prisma = new PrismaClient();
 
 class LikeModel {
   static async likeToggle(data) {
-    const exist = await prisma.like.findFirst({
+    const exist = await prisma.likeForum.findFirst({
       where: {
         userId: data.userId,
         forumId: data.forumId
       }
     });
     if (exist) {
-      return await prisma.like.delete({
+      return await prisma.likeForum.delete({
         where: {
           id: exist.id
         }
       });
     }
-    return await prisma.like.create({
+    return await prisma.likeForum.create({
       data: {
         userId: data.userId,
         forumId: data.forumId
@@ -25,7 +25,7 @@ class LikeModel {
   }
 
   static async getLikeByForumId(forumId) {
-    return await prisma.like.findMany({
+    return await prisma.likeForum.findMany({
       where: {
         forumId: parseInt(forumId)
       }
