@@ -2,13 +2,13 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 class CommentModel {
-  static async create(data) {
+  async create(data) {
     return await prisma.comment.create({
       data: data
     });
   }
 
-  static async getCommentByForumId(forumId) {
+  async getCommentByForumId(forumId) {
     return await prisma.comment.findMany({
       where: {
         forumId: parseInt(forumId)
@@ -16,7 +16,7 @@ class CommentModel {
     });
   }
 
-  static async deleteComment(commentId) {
+  async deleteComment(commentId) {
     return await prisma.comment.delete({
       where: {
         id: parseInt(commentId)
@@ -24,7 +24,7 @@ class CommentModel {
     });
   }
 
-  static async updateComment(commentId, data) {
+  async updateComment(commentId, data) {
     return await prisma.comment.update({
       where: {
         id: parseInt(commentId)

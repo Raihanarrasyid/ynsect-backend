@@ -37,7 +37,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/User'
-  /users/{userId}:
+  /user/{userId}:
     get:
       summary: Get user by id
       description: Get user by id
@@ -64,7 +64,7 @@ paths:
                     type: string
                   data:
                     $ref: '#/components/schemas/User'
-  /users/signup:
+  /user/register:
     post:
       summary: Signup user
       description: Signup user
@@ -101,7 +101,7 @@ paths:
                     type: string
                   data:
                     $ref: '#/components/schemas/User'
-  /users/login:
+  /user/login:
     post:
       summary: Login user
       description: Login user
