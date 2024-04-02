@@ -40,6 +40,7 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   Cart        Cart[]
+  OrderItems  OrderItems[]
 }
 
 model Cart {
@@ -64,6 +65,18 @@ model Order {
   status     String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  OrderItems OrderItems[]
+}
+
+model OrderItems {
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  order     Order    @relation(fields: [orderId], references: [id])
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Forum {
