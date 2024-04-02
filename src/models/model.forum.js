@@ -23,3 +23,5 @@ class ForumModel {
     });
   }
 }
+
+module.exports = ForumModel;
