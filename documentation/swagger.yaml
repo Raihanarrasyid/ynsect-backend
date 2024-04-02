@@ -546,16 +546,17 @@ paths:
                     type: string
                   data:
                     $ref: '#/components/schemas/Comments'
+  /comments/{commentId}:
     put:
       summary: Update comments
       description: Update comments
       tags:
         - Comments API
       parameters:
-        - name: forumId
+        - name: commentId
           in: path
           required: true
-          description: forum id
+          description: comment id
           schema:
             type: number
       requestBody:
@@ -610,7 +611,10 @@ paths:
                   status:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Comments'
+                    type: object
+                    properties:
+                      message:
+                        type: string
 
   /saved/{userId}:
     get:
