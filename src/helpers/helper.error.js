@@ -1,5 +1,5 @@
 class ErrorHelper {
-  static NotFoundError = (req, res, message) => {
+  static NotFound = (req, res, message) => {
     return res.status(404).json({
       code: 404,
       status: 'error',
@@ -15,7 +15,7 @@ class ErrorHelper {
     });
   };
 
-  static BadRequestError = (req, res, message) => {
+  static BadRequest = (req, res, message) => {
     return res.status(400).json({
       code: 400,
       status: 'error',
@@ -23,7 +23,7 @@ class ErrorHelper {
     });
   };
 
-  static UnauthorizedError = (req, res, message) => {
+  static Unauthorized = (req, res, message) => {
     return res.status(401).json({
       code: 401,
       status: 'error',
@@ -31,7 +31,7 @@ class ErrorHelper {
     });
   };
 
-  static ForbiddenError = (req, res, message) => {
+  static Forbidden = (req, res, message) => {
     return res.status(403).json({
       code: 403,
       status: 'error',
@@ -39,7 +39,7 @@ class ErrorHelper {
     });
   };
 
-  static Success = (req, res, message) => {
+  static OK = (req, res, message) => {
     return res.status(200).json({
       code: 200,
       status: 'success',
@@ -56,7 +56,7 @@ class ErrorHelper {
     });
   };
 
-  static DataCreated = (req, res, message, data) => {
+  static Created = (req, res, message, data) => {
     return res.status(201).json({
       code: 201,
       status: 'success',
