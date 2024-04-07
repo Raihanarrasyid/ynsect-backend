@@ -3,6 +3,7 @@ const cart = new CartModel();
 const HelperError = require('../helpers/helper.error');
 const responseHelper = require('../helpers/helper.response');
 const cartHelper = require('../helpers/helper.cart');
+const Validation = require('../helpers/helper.validation');
 
 class CartController {
   static async getCartByUserId(req, res) {
@@ -20,6 +21,10 @@ class CartController {
     try {
       const userId = req.params.userId;
       const productId = req.body.productId;
+      const { error } = await Validation.addOneProductToCart(req.body);
+      if (error) {
+        return HelperError.BadRequest(req, res, error.details[0].message);
+      }
       await cart.addOneProductToCart(userId, productId);
       return responseHelper(res, 200, 'success', { message: 'Product added to cart' });
     } catch (error) {
@@ -31,6 +36,10 @@ class CartController {
     try {
       const userId = req.params.userId;
       const productId = req.body.productId;
+      const { error } = await Validation.decreaseProductQuantity(req.body);
+      if (error) {
+        return HelperError.BadRequest(req, res, error.details[0].message);
+      }
       await cart.decreaseProductQuantity(userId, productId);
       return responseHelper(res, 200, 'success', { message: 'Product decreased from cart' });
     } catch (error) {
@@ -43,6 +52,10 @@ class CartController {
       const userId = parseInt(req.params.userId);
       const productId = parseInt(req.body.productId);
       const quantity = parseInt(req.body.quantity);
+      const { error } = await Validation.updateOrAddProductToCart(req.body);
+      if (error) {
+        return HelperError.BadRequest(req, res, error.details[0].message);
+      }
       await cart.addProductToCart(userId, { productId, quantity });
       const cartUser = await cart.getByUserId(userId);
       const cartResponse = await cartHelper(cartUser, userId);

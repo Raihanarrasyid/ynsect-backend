@@ -5,9 +5,9 @@ class Validation {
     const schema = Joi.object({
       email: Joi.string().email().required(),
       name: Joi.string().required(),
-      phone: Joi.string().required(),
+      phone: Joi.string(),
       password: Joi.string().min(8).required(),
-      address: Joi.string().required()
+      address: Joi.string()
     });
 
     return schema.validate(data);
@@ -17,6 +17,49 @@ class Validation {
     const schema = Joi.object({
       email: Joi.string().email().required(),
       password: Joi.string().min(8).required()
+    });
+
+    return schema.validate(data);
+  }
+
+  static async likeToggle(data) {
+    const schema = Joi.object({
+      forumId: Joi.number().required(),
+      userId: Joi.number().required()
+    });
+
+    return schema.validate(data);
+  }
+
+  static async createForum(data) {
+    const schema = Joi.object({
+      content: Joi.string().required(),
+      userId: Joi.number().required()
+    });
+
+    return schema.validate(data);
+  }
+
+  static async addOneProductToCart(data) {
+    const schema = Joi.object({
+      productId: Joi.number().required()
+    });
+
+    return schema.validate(data);
+  }
+
+  static async decreaseProductQuantity(data) {
+    const schema = Joi.object({
+      productId: Joi.number().required()
+    });
+
+    return schema.validate(data);
+  }
+
+  static async updateOrAddProductToCart(data) {
+    const schema = Joi.object({
+      productId: Joi.number().required(),
+      quantity: Joi.number().required()
     });
 
     return schema.validate(data);

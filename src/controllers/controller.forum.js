@@ -2,6 +2,7 @@ const ForumModel = require('../models/model.forum');
 const forum = new ForumModel();
 const HelperError = require('../helpers/helper.error');
 const responseHelper = require('../helpers/helper.response');
+const Validation = require('../helpers/helper.validation');
 
 class ForumController {
   static async getAllForum(req, res) {
@@ -23,6 +24,10 @@ class ForumController {
   static async createForum(req, res) {
     try {
       const data = req.body;
+      const { error } = await Validation.createForum(data);
+      if (error) {
+        return HelperError.BadRequest(req, res, error.details[0].message);
+      }
       await forum.createForum(data);
       return responseHelper(res, 200, 'success', { message: 'Forum created' });
     } catch (error) {
