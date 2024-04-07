@@ -10,13 +10,13 @@ class LikeModel {
       }
     });
     if (exist) {
-      return await prisma.like.delete({
+      return await prisma.likeForum.delete({
         where: {
           id: exist.id
         }
       });
     }
-    return await prisma.like.create({
+    return await prisma.likeForum.create({
       data: {
         userId: data.userId,
         forumId: data.forumId

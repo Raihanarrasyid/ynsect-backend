@@ -23,11 +23,11 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   carts     Cart[]
-  orders    Order[]
+  orderusers    OrderUser[]
   forums    Forum[]
   comments  Comment[]
   saved     Saved[]
-  likes     Like[]
+  likeforums     LikeForum[]
 }
 
 model Product {
@@ -40,6 +40,7 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   Cart        Cart[]
+  OrderItems  OrderItems[]
 }
 
 model Cart {
@@ -50,20 +51,30 @@ model Cart {
   product   Product  @relation(fields: [productId], references: [id])
   quantity  Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Order     Order[]
+  updatedAt DateTime @default(now())
 }
 
-model Order {
+model OrderUser {
   id         Int      @id @default(autoincrement())
   userId     Int
   user       User     @relation(fields: [userId], references: [id])
-  cartId     Int
-  cart       Cart     @relation(fields: [cartId], references: [id])
   totalPrice Int
-  status     String
+  status     statusOrder @default(pending)
+  paymentLink String @default("")
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  OrderItems OrderItems[]
+}
+
+model OrderItems {
+  id        Int      @id @default(autoincrement())
+  orderUserId   Int
+  orderuser     OrderUser    @relation(fields: [orderUserId], references: [id])
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Forum {
@@ -75,7 +86,7 @@ model Forum {
   updatedAt DateTime  @updatedAt
   comments  Comment[]
   saved     Saved[]
-  likes     Like[]
+  likeforums     LikeForum[]
 }
 
 model Comment {
@@ -100,7 +111,7 @@ model Saved {
   updatedAt DateTime @updatedAt
 }
 
-model Like {
+model LikeForum {
   id        Int      @id @default(autoincrement())
   userId    Int
   user      User     @relation(fields: [userId], references: [id])
@@ -108,4 +119,25 @@ model Like {
   forum     Forum    @relation(fields: [forumId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Agenda {
+  id        String @id @default(uuid())
+  status    Status
+  title     String
+  description String @db.Text
+  image     String?
+  createdAt DateTime @default(now())
+}
+
+enum Status {
+  prepare
+  inprogress
+  done
+}
+
+enum statusOrder {
+  pending
+  onprogress
+  done
 }
