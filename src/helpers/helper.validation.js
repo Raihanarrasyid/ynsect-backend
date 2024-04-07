@@ -5,7 +5,9 @@ class Validation {
     const schema = Joi.object({
       email: Joi.string().email().required(),
       name: Joi.string().required(),
-      password: Joi.string().min(8).required()
+      password: Joi.string().min(8).required(),
+      phone: Joi.string(),
+      address: Joi.string()
     });
 
     return schema.validate(data);
