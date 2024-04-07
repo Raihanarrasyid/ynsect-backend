@@ -23,8 +23,48 @@ async function addProduct(name, price, stock, description = null, image = null) 
 }
 
 addProduct(
-  'Product Name',
-  10000,
+  'Larva BSF Kering',
+  32000,
+  100,
+  'Example product description.',
+  'https://example.com/product-image.jpg'
+);
+
+addProduct(
+  'Protein BSF Larva',
+  32000,
+  100,
+  'Example product description.',
+  'https://example.com/product-image.jpg'
+);
+
+addProduct(
+  'Minyak BSF Larva',
+  32000,
+  100,
+  'Example product description.',
+  'https://example.com/product-image.jpg'
+);
+
+addProduct(
+  'BSF Larva Hidup',
+  32000,
+  100,
+  'Example product description.',
+  'https://example.com/product-image.jpg'
+);
+
+addProduct(
+  'Pelet BSF',
+  32000,
+  100,
+  'Example product description.',
+  'https://example.com/product-image.jpg'
+);
+
+addProduct(
+  'Pupuk BSF',
+  32000,
   100,
   'Example product description.',
   'https://example.com/product-image.jpg'
