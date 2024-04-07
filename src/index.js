@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
+const cors = require('cors');
 
 const UserRouter = require('./routes/route.user');
 const CartRouter = require('./routes/route.cart');
@@ -13,6 +14,14 @@ const LikeRouter = require('./routes/route.like');
 const CommentRouter = require('./routes/route.comment');
 const AgendaRouter = require('./routes/route.agenda');
 const OrderRouter = require('./routes/route.order');
+
+const corsOptions = {
+  origin: process.env.FRONTEND_URL,
+  optionsSuccessStatus: 200,
+  methods: 'GET, POST, PUT, DELETE, PATCH'
+};
+
+app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
