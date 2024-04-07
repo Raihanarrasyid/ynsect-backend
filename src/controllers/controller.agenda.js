@@ -2,6 +2,7 @@ const AgendaModel = require('../models/model.agenda');
 const agenda = new AgendaModel();
 const HelperError = require('../helpers/helper.error');
 const responseHelper = require('../helpers/helper.response');
+const uploadMiddleware = require('../middleware/middleware.uploadFile');
 
 class AgendaController {
   static async getAll(req, res) {
@@ -16,6 +17,20 @@ class AgendaController {
   static async create(req, res) {
     try {
       const data = req.body;
+
+      await uploadMiddleware(req, res, async (error) => {
+        if (error) {
+          return HelperError.BadRequest(req, res, error.message);
+        }
+
+        if (!req.body.image) {
+          return HelperError.BadRequest(req, res, 'Image is required.');
+        }
+
+        const result = await agenda.create(data);
+        return responseHelper(res, 200, 'success', result);
+      });
+
       const result = await agenda.create(data);
       return responseHelper(res, 200, 'success', result);
     } catch (error) {
