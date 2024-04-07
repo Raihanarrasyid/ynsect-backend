@@ -51,18 +51,16 @@ model Cart {
   product   Product  @relation(fields: [productId], references: [id])
   quantity  Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  OrderUser     OrderUser[]
+  updatedAt DateTime @default(now())
 }
 
 model OrderUser {
   id         Int      @id @default(autoincrement())
   userId     Int
   user       User     @relation(fields: [userId], references: [id])
-  cartId     Int
-  cart       Cart     @relation(fields: [cartId], references: [id])
   totalPrice Int
-  status     String
+  status     statusOrder @default(pending)
+  paymentLink String @default("")
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   OrderItems OrderItems[]
@@ -135,5 +133,11 @@ model Agenda {
 enum Status {
   prepare
   inprogress
+  done
+}
+
+enum statusOrder {
+  pending
+  onprogress
   done
 }

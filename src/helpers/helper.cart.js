@@ -11,7 +11,7 @@ const cartHelper = async (result, userId) => {
   for (let i = 0; i < result.length; i++) {
     const productData = await product.getById(result[i].productId);
     cartResponse.products.push({
-      id: result[i].product_id,
+      id: productData.id,
       name: productData.name,
       quantity: result[i].quantity,
       price: productData.price,
