@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 class LikeModel {
-  static async likeToggle(data) {
+  async toggle(data) {
     const exist = await prisma.like.findFirst({
       where: {
         userId: data.userId,
@@ -24,12 +24,13 @@ class LikeModel {
     });
   }
 
-  static async getLikeByForumId(forumId) {
-    return await prisma.like.findMany({
+  async getAllByForumId(forumId) {
+    const likes = await prisma.like.findMany({
       where: {
         forumId: parseInt(forumId)
       }
     });
+    return likes;
   }
 }
 

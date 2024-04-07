@@ -2,11 +2,12 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 class ForumModel {
-  static async getAllForum() {
-    return await prisma.forum.findMany();
+  async getAll() {
+    const forums = await prisma.forum.findMany();
+    return forums;
   }
 
-  static async createForum(data) {
+  async create(data) {
     return await prisma.forum.create({
       data: {
         content: data.question,
@@ -15,11 +16,14 @@ class ForumModel {
     });
   }
 
-  static async getForumById(id) {
-    return await prisma.forum.findUnique({
+  async getById(forumId) {
+    const forum = await prisma.forum.findUnique({
       where: {
-        id: parseInt(id)
+        id: parseInt(forumId)
       }
     });
+    return forum;
   }
 }
+
+module.exports = ForumModel;

@@ -1,31 +1,31 @@
 const LikeModel = require('../models/model.like');
 const like = new LikeModel();
-const HelperError = require('../helpers/helper.error');
-const responseHelper = require('../helpers/helper.response');
 const Validation = require('../helpers/helper.validation');
+const ErrorResponse = require('../helpers/helper.error');
+const SuccessResponse = require('../helpers/helper.success');
 
 class LikeController {
-  static async likeToggle(req, res) {
+  static async toggle(req, res) {
     try {
       const data = req.body;
-      const { error } = await Validation.likeToggle(data);
+      const { error } = await Validation.toggleLike(data);
       if (error) {
-        return HelperError.BadRequest(req, res, error.details[0].message);
+        return ErrorResponse.BadRequest(req, res, error.details[0].message);
       }
-      await like.likeToggle(data);
-      return responseHelper(res, 200, 'success', { message: 'Like Changed' });
+      await like.toggle(data);
+      return SuccessResponse.OK(req, res, 'Like changed');
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 
-  static async getLikeByForumId(req, res) {
+  static async getAllByForumId(req, res) {
     try {
       const forumId = req.params.forumId;
-      const result = await like.getLikeByForumId(forumId);
-      return responseHelper(res, 200, 'success', result);
+      const results = await like.getAllByForumId(forumId);
+      return SuccessResponse.DataFound(req, res, 'Data found', results);
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 }

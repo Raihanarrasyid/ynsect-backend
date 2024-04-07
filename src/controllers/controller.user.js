@@ -1,56 +1,67 @@
 const UserModel = require('../models/model.user');
 const user = new UserModel();
-const response = require('../helpers/helper.error');
+const ErrorResponse = require('../helpers/helper.error');
+const SuccessResponse = require('../helpers/helper.success');
 const { generateToken } = require('../helpers/helper.authorization');
 const Validation = require('../helpers/helper.validation');
 
 class UserController {
-  static async getUsers(req, res) {
+  static async getAll(req, res) {
     try {
       const results = await user.getAll();
-      return response.DataFound(req, res, 'Data found', results);
+      return SuccessResponse.DataFound(req, res, 'Data found', results);
     } catch (error) {
-      return response.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 
-  static async getUserById(req, res) {
+  static async getById(req, res) {
     try {
-      const userId = parseInt(req.params.userId);
+      const userId = req.params.userId;
       const result = await user.getById(userId);
-      return response.DataFound(req, res, 'Data found', result);
+      return SuccessResponse.DataFound(req, res, 'Data found', result);
     } catch (error) {
-      return response.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 
-  static async registerUser(req, res) {
+  static async getByEmail(req, res) {
+    try {
+      const userEmail = req.params.userEmail;
+      const result = await user.getByEmail(userEmail);
+      return SuccessResponse.DataFound(req, res, 'Data found', result);
+    } catch (error) {
+      return ErrorResponse.InternalServer(req, res, error.message);
+    }
+  }
+
+  static async register(req, res) {
     try {
       const data = req.body;
       const { error } = await Validation.registerUser(data);
       if (error) {
-        return response.BadRequest(req, res, error.details[0].message);
+        return ErrorResponse.BadRequest(req, res, error.details[0].message);
       }
       const result = await user.register(data);
-      return response.Created(req, res, 'Account registered', result);
+      return SuccessResponse.Created(req, res, 'Account registered', result);
     } catch (error) {
-      return response.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 
-  static async loginUser(req, res) {
+  static async login(req, res) {
     try {
       const data = req.body;
       const { error } = await Validation.loginUser(data);
       if (error) {
-        return response.BadRequest(req, res, error.details[0].message);
+        return ErrorResponse.BadRequest(req, res, error.details[0].message);
       }
       const result = await user.login(data);
       const token = generateToken({ id: result.id });
       result.token = token;
-      return response.DataFound(req, res, 'Login success', result);
+      return SuccessResponse.DataFound(req, res, 'Login success', result);
     } catch (error) {
-      return response.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 }

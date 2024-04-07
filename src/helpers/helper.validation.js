@@ -22,7 +22,7 @@ class Validation {
     return schema.validate(data);
   }
 
-  static async likeToggle(data) {
+  static async toggleLike(data) {
     const schema = Joi.object({
       forumId: Joi.number().required(),
       userId: Joi.number().required()
@@ -40,7 +40,7 @@ class Validation {
     return schema.validate(data);
   }
 
-  static async addOneProductToCart(data) {
+  static async addOneProductCart(data) {
     const schema = Joi.object({
       productId: Joi.number().required()
     });
@@ -56,7 +56,7 @@ class Validation {
     return schema.validate(data);
   }
 
-  static async updateOrAddProductToCart(data) {
+  static async updateOrAddProductCart(data) {
     const schema = Joi.object({
       productId: Joi.number().required(),
       quantity: Joi.number().required()
