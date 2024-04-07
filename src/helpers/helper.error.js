@@ -7,7 +7,7 @@ class ErrorHelper {
     });
   };
 
-  static InternalServerError = (req, res, message) => {
+  static InternalServer = (req, res, message) => {
     return res.status(500).json({
       code: 500,
       status: 'error',
@@ -36,32 +36,6 @@ class ErrorHelper {
       code: 403,
       status: 'error',
       message: message
-    });
-  };
-
-  static OK = (req, res, message) => {
-    return res.status(200).json({
-      code: 200,
-      status: 'success',
-      message: message
-    });
-  };
-
-  static DataFound = (req, res, message, data) => {
-    return res.status(200).json({
-      code: 200,
-      status: 'success',
-      message: message,
-      data: data
-    });
-  };
-
-  static Created = (req, res, message, data) => {
-    return res.status(201).json({
-      code: 201,
-      status: 'success',
-      message: message,
-      data: data
     });
   };
 }

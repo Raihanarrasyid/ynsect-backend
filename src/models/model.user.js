@@ -22,15 +22,33 @@ class UserModel {
     const user = await prisma.user.findUnique({
       where: {
         id: parseInt(userId)
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        phone: true,
+        address: true,
+        createdAt: true,
+        updatedAt: true
       }
     });
     return user;
   }
 
-  async getByEmail(email) {
+  async getByEmail(userEmail) {
     const user = await prisma.user.findUnique({
       where: {
-        email: email
+        email: userEmail
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        phone: true,
+        address: true,
+        createdAt: true,
+        updatedAt: true
       }
     });
     return user;
@@ -49,9 +67,12 @@ class UserModel {
         email: data.email
       }
     });
-    const isValid = await bcrypt.compare(data.password, user.password);
+    if (!user) {
+      throw new Error('Invalid email or password');
+    }
 
-    if (!user || !isValid) {
+    const isValid = await bcrypt.compare(data.password, user.password);
+    if (!isValid) {
       throw new Error('Invalid email or password');
     }
 

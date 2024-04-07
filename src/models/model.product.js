@@ -3,15 +3,17 @@ const prisma = new PrismaClient();
 
 class ProductModel {
   async getAll() {
-    return await prisma.product.findMany();
+    const products = await prisma.product.findMany();
+    return products;
   }
 
   async getById(productId) {
-    return await prisma.product.findUnique({
+    const product = await prisma.product.findUnique({
       where: {
         id: parseInt(productId)
       }
     });
+    return product;
   }
 }
 
