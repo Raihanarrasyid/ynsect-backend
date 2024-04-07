@@ -1,8 +1,9 @@
 const express = require('express');
-const productRouter = express.Router();
-const productController = require('../controllers/controller.product');
+const ProductRouter = express.Router();
+const ProductController = require('../controllers/controller.product');
+const { authCheck } = require('../helpers/helper.authorization');
 
-productRouter.get('/products', productController.getProducts);
-productRouter.get('/products/:productId', productController.getProductById);
+ProductRouter.get('/products', authCheck, ProductController.getAll);
+ProductRouter.get('/product/:productId', authCheck, ProductController.getById);
 
-module.exports = productRouter;
+module.exports = ProductRouter;

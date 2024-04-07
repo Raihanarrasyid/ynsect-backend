@@ -1,42 +1,47 @@
 const ForumModel = require('../models/model.forum');
 const forum = new ForumModel();
-const HelperError = require('../helpers/helper.error');
-const responseHelper = require('../helpers/helper.response');
+const Validation = require('../helpers/helper.validation');
+const ErrorResponse = require('../helpers/helper.error');
+const SuccessResponse = require('../helpers/helper.success');
 
 class ForumController {
-  static async getAllForum(req, res) {
+  static async getAll(req, res) {
     try {
-      const result = await forum.getAllForum();
-      const forumResponse = result.map((data) => {
+      const results = await forum.getAll();
+      const forumResponse = results.map((data) => {
         return {
           id: data.id,
           question: data.content,
           userId: data.userId
         };
       });
-      return responseHelper(res, 200, 'success', forumResponse);
+      return SuccessResponse.DataFound(req, res, 'Data found', forumResponse);
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 
-  static async createForum(req, res) {
+  static async create(req, res) {
     try {
       const data = req.body;
-      await forum.createForum(data);
-      return responseHelper(res, 200, 'success', { message: 'Forum created' });
+      const { error } = await Validation.createForum(data);
+      if (error) {
+        return ErrorResponse.BadRequest(req, res, error.details[0].message);
+      }
+      const result = await forum.create(data);
+      return SuccessResponse.Created(req, res, 'Forum created', result);
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 
-  static async getForumById(req, res) {
+  static async getById(req, res) {
     try {
-      const id = req.params.id;
-      const result = await forum.getForumById(id);
-      return responseHelper(res, 200, 'success', result);
+      const forumId = req.params.forumId;
+      const result = await forum.getById(forumId);
+      return SuccessResponse.DataFound(req, res, 'Data found', result);
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 }

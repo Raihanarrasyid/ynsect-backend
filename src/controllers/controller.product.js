@@ -1,32 +1,25 @@
 const ProductModel = require('../models/model.product');
 const product = new ProductModel();
-const responseHelper = require('../helpers/helper.response');
+const ErrorResponse = require('../helpers/helper.error');
+const SuccessResponse = require('../helpers/helper.success');
 
 class ProductController {
-  static async getProducts(req, res) {
+  static async getAll(req, res) {
     try {
       const results = await product.getAll();
-      return responseHelper(res, 200, 'success', results);
+      return SuccessResponse.DataFound(req, res, 'Data found', results);
     } catch (error) {
-      return res.status(500).json({
-        code: 500,
-        status: 'error',
-        message: error.message
-      });
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 
-  static async getProductById(req, res) {
+  static async getById(req, res) {
     try {
-      const productId = parseInt(req.params.productId);
-      const results = await product.getById(productId);
-      return responseHelper(res, 200, 'success', results);
+      const productId = req.params.productId;
+      const result = await product.getById(productId);
+      return SuccessResponse.DataFound(req, res, 'Data found', result);
     } catch (error) {
-      return res.status(500).json({
-        code: 500,
-        status: 'error',
-        message: error.message
-      });
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 }

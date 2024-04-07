@@ -12,7 +12,7 @@ const verifyToken = (token) => {
 const authCheck = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
-    return response.UnauthorizedError(res, res, 'Unauthorized');
+    return response.Unauthorized(res, res, 'Unauthorized');
   }
 
   try {
@@ -20,7 +20,7 @@ const authCheck = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
-    return response.UnauthorizedError(req, res, 'Unauthorized');
+    return response.Unauthorized(req, res, 'Unauthorized');
   }
 };
 

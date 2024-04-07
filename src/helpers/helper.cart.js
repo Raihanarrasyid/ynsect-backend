@@ -1,24 +1,24 @@
 const ProductModel = require('../models/model.product');
 const product = new ProductModel();
 
-const cartHelper = async (result, userId) => {
+const cartHelper = async (results, userId) => {
   const cartResponse = {
     userId: userId,
     products: [],
     total_items: 0,
     total_price: 0
   };
-  for (let i = 0; i < result.length; i++) {
-    const productData = await product.getById(result[i].productId);
+  for (let i = 0; i < results.length; i++) {
+    const productData = await product.getById(results[i].productId);
     cartResponse.products.push({
       id: productData.id,
       name: productData.name,
-      quantity: result[i].quantity,
+      quantity: results[i].quantity,
       price: productData.price,
       description: productData.description
     });
-    cartResponse.total_items += result[i].quantity;
-    cartResponse.total_price += result[i].quantity * productData.price;
+    cartResponse.total_items += results[i].quantity;
+    cartResponse.total_price += results[i].quantity * productData.price;
   }
   return cartResponse;
 };
