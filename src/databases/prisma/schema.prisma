@@ -122,3 +122,18 @@ model LikeForum {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Agenda {
+  id        String @id @default(uuid())
+  status    Status
+  title     String
+  description String @db.Text
+  image     String?
+  createdAt DateTime @default(now())
+}
+
+enum Status {
+  prepare
+  inprogress
+  done
+}
