@@ -7,7 +7,7 @@ const user = new UserModel();
 const OrderItemModel = require('../models/model.orderitem');
 const orderItem = new OrderItemModel();
 const cartHelper = require('../helpers/helper.cart');
-const responseHelper = require('../helpers/helper.response');
+const SuccessResponse = require('../helpers/helper.success');
 const HelperError = require('../helpers/helper.error');
 const midtransClient = require('midtrans-client');
 
@@ -23,7 +23,7 @@ class OrderController {
       const result = await order.getById(orderId);
       const products = await orderItem.getByOrderUserId(result.id);
 
-      return responseHelper(res, 200, 'success', { ...result, products });
+      return SuccessResponse.DataFound(res, 200, 'success', { ...result, products });
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }
@@ -34,7 +34,7 @@ class OrderController {
       const userOrder = await user.getById(orderData.userId);
       const cartUser = await cart.getByUserId(orderData.userId);
       if (cartUser.length === 0) {
-        return responseHelper(res, 400, 'error', { message: 'Cart is empty' });
+        return HelperError.BadRequest(res, 'Cart is empty');
       }
       const cartResponse = await cartHelper(cartUser, orderData.userId);
       const result = await order.create({ ...orderData, totalPrice: cartResponse.total_price });
@@ -82,7 +82,7 @@ class OrderController {
       };
       snap.createTransaction(parameter).then(async (transaction) => {
         await order.update(result.id, { paymentLink: transaction.redirect_url });
-        return responseHelper(res, 200, 'success', transaction);
+        return SuccessResponse.Created(res, 200, 'success', transaction);
       });
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
@@ -94,7 +94,7 @@ class OrderController {
       const result = await order.getByUserId(userId);
       const products = await orderItem.getByOrderUserId(result[0].id);
 
-      return responseHelper(res, 200, 'success', { ...result[0], products });
+      return SuccessResponse.DataFound(res, 200, 'success', { ...result[0], products });
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }
@@ -105,7 +105,7 @@ class OrderController {
       const orderId = parseInt(req.params.orderId);
       const status = req.body.status;
       const result = await order.updateStatus(orderId, status);
-      return responseHelper(res, 200, 'success', result);
+      return SuccessResponse.Created(res, 200, 'success', result);
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }

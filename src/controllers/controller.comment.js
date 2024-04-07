@@ -1,14 +1,14 @@
 const CommentModel = require('../models/model.comment');
 const comment = new CommentModel();
 const HelperError = require('../helpers/helper.error');
-const responseHelper = require('../helpers/helper.response');
+const SuccessResponse = require('../helpers/helper.success');
 
 class CommentController {
   static async getCommentByForumId(req, res) {
     try {
       const forumId = parseInt(req.params.forumId);
       const result = await comment.getCommentByForumId(forumId);
-      return responseHelper(res, 200, 'success', result);
+      return SuccessResponse.DataFound(res, 200, 'success', result);
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }
@@ -18,7 +18,7 @@ class CommentController {
     try {
       const data = req.body;
       const result = await comment.create(data);
-      return responseHelper(res, 200, 'success', result);
+      return SuccessResponse.Created(res, 200, 'success', result);
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }
@@ -28,7 +28,7 @@ class CommentController {
     try {
       const commentId = parseInt(req.params.commentId);
       await comment.deleteComment(commentId);
-      return responseHelper(res, 200, 'success', { message: 'Comment deleted' });
+      return SuccessResponse.Created(res, 200, 'success', { message: 'Comment deleted' });
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }
