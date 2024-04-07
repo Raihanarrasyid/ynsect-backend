@@ -710,6 +710,134 @@ paths:
                     type: string
                   data:
                     $ref: '#/components/schemas/Saved'
+
+  /orders:
+    post:
+      summary: Create orders from carts
+      description: Need items in cart to create orders, just need userId because we will get the items automatically from cart
+      tags:
+        - Orders API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: number
+      responses:
+        '200':
+          description: 'Success create orders'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                      redirect_url:
+                        type: string
+  /orders/user/{userId}:
+    get:
+      summary: Get orders by user id
+      description: Get orders by user id
+      tags:
+        - Orders API
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: user id
+          schema:
+            type: number
+      responses:
+        '200':
+          description: 'Success get orders by user id'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Orders'
+  /orders/{orderId}:
+    get:
+      summary: Get orders by order id
+      description: Get orders by order id
+      tags:
+        - Orders API
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: order id
+          schema:
+            type: number
+      responses:
+        '200':
+          description: 'Success get orders by order id'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Orders'
+  /orders/status/{orderId}:
+    put:
+      summary: Update orders status
+      description: Update orders status
+      tags:
+        - Orders API
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: order id
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        '200':
+          description: 'Success update orders status'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Orders'
+
 components:
   schemas:
     Forum:
@@ -819,9 +947,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Product'
-        total_items:
-          type: number
-        total_price:
-          type: number
+        paymentLink:
+          type: string
         status:
           type: string

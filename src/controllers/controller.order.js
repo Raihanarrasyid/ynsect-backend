@@ -17,6 +17,17 @@ let snap = new midtransClient.Snap({
 });
 
 class OrderController {
+  static async getById(req, res) {
+    try {
+      const orderId = parseInt(req.params.orderId);
+      const result = await order.getById(orderId);
+      const products = await orderItem.getByOrderUserId(result.id);
+
+      return responseHelper(res, 200, 'success', { ...result, products });
+    } catch (error) {
+      return HelperError.InternalServerError(req, res, error.message);
+    }
+  }
   static async createOrder(req, res) {
     try {
       const orderData = req.body;
@@ -81,7 +92,9 @@ class OrderController {
     try {
       const userId = parseInt(req.params.userId);
       const result = await order.getByUserId(userId);
-      return responseHelper(res, 200, 'success', result);
+      const products = await orderItem.getByOrderUserId(result[0].id);
+
+      return responseHelper(res, 200, 'success', { ...result[0], products });
     } catch (error) {
       return HelperError.InternalServerError(req, res, error.message);
     }

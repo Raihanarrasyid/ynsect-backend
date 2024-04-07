@@ -9,6 +9,13 @@ class OrderItemModel {
       }
     });
   }
+  async getByOrderUserId(orderUserId) {
+    return await prisma.orderItems.findMany({
+      where: {
+        orderUserId: parseInt(orderUserId)
+      }
+    });
+  }
   async create(orderItemData) {
     return await prisma.orderItems.create({
       data: orderItemData
