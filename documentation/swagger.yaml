@@ -875,6 +875,8 @@ paths:
                           type: string
                         deadline:
                           type: string
+                        image:
+                          type: string
     post:
       summary: Create agenda
       description: Create agenda

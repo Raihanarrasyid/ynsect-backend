@@ -8,14 +8,7 @@ class ForumController {
   static async getAll(req, res) {
     try {
       const results = await forum.getAll();
-      const forumResponse = results.map((data) => {
-        return {
-          id: data.id,
-          content: data.content,
-          userId: data.userId
-        };
-      });
-      return SuccessResponse.DataFound(req, res, 'Data found', forumResponse);
+      return SuccessResponse.DataFound(req, res, 'Data found', results);
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
