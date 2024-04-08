@@ -7,7 +7,7 @@ class AgendaController {
   static async getAll(req, res) {
     try {
       const result = await agenda.getAll();
-      return SuccessResponse.DataFound(res, 200, 'success', result);
+      return SuccessResponse.DataFound(req, res, 200, 'success', result);
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
@@ -36,7 +36,7 @@ class AgendaController {
       const id = req.params.id;
       const data = req.body;
       const result = await agenda.update(id, data);
-      return SuccessResponse.Created(res, 200, 'success', result);
+      return SuccessResponse.Created(req, res, 200, 'success', result);
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
@@ -46,7 +46,7 @@ class AgendaController {
     try {
       const id = req.params.id;
       const result = await agenda.delete(id);
-      return SuccessResponse.Created(res, 200, 'success', result);
+      return SuccessResponse.Created(req, res, 200, 'success', result);
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
