@@ -8,7 +8,7 @@ const OrderItemModel = require('../models/model.orderitem');
 const orderItem = new OrderItemModel();
 const cartHelper = require('../helpers/helper.cart');
 const SuccessResponse = require('../helpers/helper.success');
-const HelperError = require('../helpers/helper.error');
+const ErrorResponse = require('../helpers/helper.error');
 const midtransClient = require('midtrans-client');
 
 let snap = new midtransClient.Snap({
@@ -25,7 +25,7 @@ class OrderController {
 
       return SuccessResponse.DataFound(res, 200, 'success', { ...result, products });
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
   static async createOrder(req, res) {
@@ -34,7 +34,7 @@ class OrderController {
       const userOrder = await user.getById(orderData.userId);
       const cartUser = await cart.getByUserId(orderData.userId);
       if (cartUser.length === 0) {
-        return HelperError.BadRequest(res, 'Cart is empty');
+        return ErrorResponse.BadRequest(res, 'Cart is empty');
       }
       const cartResponse = await cartHelper(cartUser, orderData.userId);
       const result = await order.create({ ...orderData, totalPrice: cartResponse.total_price });
@@ -85,7 +85,7 @@ class OrderController {
         return SuccessResponse.Created(res, 200, 'success', transaction);
       });
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
   static async getOrderByUserId(req, res) {
@@ -96,7 +96,7 @@ class OrderController {
 
       return SuccessResponse.DataFound(res, 200, 'success', { ...result[0], products });
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 
@@ -107,7 +107,7 @@ class OrderController {
       const result = await order.updateStatus(orderId, status);
       return SuccessResponse.Created(res, 200, 'success', result);
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 }
