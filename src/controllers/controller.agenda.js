@@ -15,10 +15,10 @@ class AgendaController {
 
   static async create(req, res, next) {
     try {
-      const { status, title, description } = req.body;
+      const { status, title, description, deadline } = req.body;
 
       const image = req.fileUrl;
-      const data = { status, title, description, image };
+      const data = { status, title, description, image, deadline };
       const result = await agenda.create(data);
       return SuccessResponse.Created(req, res, 'Data created', result);
     } catch (error) {
