@@ -7,7 +7,7 @@ class AgendaController {
   static async getAll(req, res) {
     try {
       const result = await agenda.getAll();
-      return SuccessResponse.DataFound(req, res, 200, 'success', result);
+      return SuccessResponse.DataFound(req, res, 'Data found', result);
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
@@ -20,12 +20,7 @@ class AgendaController {
       const image = req.fileUrl;
       const data = { status, title, description, image };
       const result = await agenda.create(data);
-      return res.status(201).json({
-        code: 201,
-        status: 'success',
-        message: 'Data created',
-        data: result
-      });
+      return SuccessResponse.Created(req, res, 'Data created', result);
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
@@ -37,8 +32,8 @@ class AgendaController {
       const { status, title, description } = req.body;
       const image = req.fileUrl;
       const data = { status, title, description, image };
-      const result = await agenda.update(id, data);
-      return SuccessResponse.Created(req, res, 200, 'success', result);
+      await agenda.update(id, data);
+      return SuccessResponse.OK(req, res, 'Data updated');
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
@@ -47,8 +42,8 @@ class AgendaController {
   static async delete(req, res) {
     try {
       const id = req.params.id;
-      const result = await agenda.delete(id);
-      return SuccessResponse.Created(req, res, 200, 'success', result);
+      await agenda.delete(id);
+      return SuccessResponse.OK(req, res, 'Data deleted');
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
@@ -58,7 +53,7 @@ class AgendaController {
     try {
       const id = req.params.id;
       const result = await agenda.getById(id);
-      return SuccessResponse.DataFound(res, 200, 'success', result);
+      return SuccessResponse.DataFound(req, res, 'Data found', result);
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }

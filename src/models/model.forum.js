@@ -3,7 +3,21 @@ const prisma = new PrismaClient();
 
 class ForumModel {
   async getAll() {
-    const forums = await prisma.forum.findMany();
+    const forums = await prisma.forum.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            email: true,
+            name: true,
+            phone: true,
+            address: true,
+            createdAt: true,
+            updatedAt: true
+          }
+        }
+      }
+    });
     return forums;
   }
 
