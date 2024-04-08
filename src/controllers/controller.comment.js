@@ -1,6 +1,6 @@
 const CommentModel = require('../models/model.comment');
 const comment = new CommentModel();
-const HelperError = require('../helpers/helper.error');
+const ErrorResponse = require('../helpers/helper.error');
 const SuccessResponse = require('../helpers/helper.success');
 
 class CommentController {
@@ -10,7 +10,7 @@ class CommentController {
       const result = await comment.getCommentByForumId(forumId);
       return SuccessResponse.DataFound(res, 200, 'success', result);
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 
@@ -20,7 +20,7 @@ class CommentController {
       const result = await comment.create(data);
       return SuccessResponse.Created(res, 200, 'success', result);
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 
@@ -30,7 +30,7 @@ class CommentController {
       await comment.deleteComment(commentId);
       return SuccessResponse.Created(res, 200, 'success', { message: 'Comment deleted' });
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 
@@ -41,7 +41,7 @@ class CommentController {
       await comment.updateComment(commentId, data);
       return responseHelper(res, 200, 'success', { message: 'Comment updated' });
     } catch (error) {
-      return HelperError.InternalServerError(req, res, error.message);
+      return ErrorResponse.InternalServer(req, res, error.message);
     }
   }
 }
