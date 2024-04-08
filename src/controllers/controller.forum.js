@@ -11,7 +11,7 @@ class ForumController {
       const forumResponse = results.map((data) => {
         return {
           id: data.id,
-          question: data.content,
+          content: data.content,
           userId: data.userId
         };
       });
