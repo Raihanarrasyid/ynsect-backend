@@ -23,7 +23,7 @@ class OrderController {
       const result = await order.getById(orderId);
       const products = await orderItem.getByOrderUserId(result.id);
 
-      return SuccessResponse.DataFound(res, 200, 'success', { ...result, products });
+      return SuccessResponse.DataFound(req, res, 'Data found', { ...result, products });
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
@@ -32,9 +32,9 @@ class OrderController {
     try {
       const orderData = req.body;
       const userOrder = await user.getById(orderData.userId);
-      const cartUser = await cart.getByUserId(orderData.userId);
+      const cartUser = await cart.getAllByUserId(orderData.userId);
       if (cartUser.length === 0) {
-        return ErrorResponse.BadRequest(res, 'Cart is empty');
+        return ErrorResponse.BadRequest(req, res, 'Cart is empty');
       }
       const cartResponse = await cartHelper(cartUser, orderData.userId);
       const result = await order.create({ ...orderData, totalPrice: cartResponse.total_price });
@@ -48,7 +48,7 @@ class OrderController {
         });
       }
 
-      await cart.deleteCartByUserId(orderData.userId);
+      await cart.deleteAllByUserId(orderData.userId);
 
       const midtransItems = products.map((product) => {
         return {
@@ -82,7 +82,7 @@ class OrderController {
       };
       snap.createTransaction(parameter).then(async (transaction) => {
         await order.update(result.id, { paymentLink: transaction.redirect_url });
-        return SuccessResponse.Created(res, 200, 'success', transaction);
+        return SuccessResponse.Created(req, res, 'Transaction created', transaction);
       });
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
@@ -94,7 +94,7 @@ class OrderController {
       const result = await order.getByUserId(userId);
       const products = await orderItem.getByOrderUserId(result[0].id);
 
-      return SuccessResponse.DataFound(res, 200, 'success', { ...result[0], products });
+      return SuccessResponse.DataFound(req, res, 'Data found', { ...result[0], products });
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
@@ -104,8 +104,8 @@ class OrderController {
     try {
       const orderId = parseInt(req.params.orderId);
       const status = req.body.status;
-      const result = await order.updateStatus(orderId, status);
-      return SuccessResponse.Created(res, 200, 'success', result);
+      await order.updateStatus(orderId, status);
+      return SuccessResponse.OK(req, res, 'Order status updated');
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
