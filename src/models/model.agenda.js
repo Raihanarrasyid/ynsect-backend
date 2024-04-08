@@ -8,7 +8,7 @@ class Agenda {
   }
 
   async create(data) {
-    return await prisma.agenda.create(data);
+    return await prisma.agenda.create({ data: data });
   }
 
   async update(id, data) {

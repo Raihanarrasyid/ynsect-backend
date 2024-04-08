@@ -13,15 +13,19 @@ class AgendaController {
     }
   }
 
-  static async create(req, res) {
+  static async create(req, res, next) {
     try {
       const { status, title, description } = req.body;
 
       const image = req.fileUrl;
       const data = { status, title, description, image };
       const result = await agenda.create(data);
-
-      return SuccessResponse.Created(res, 200, 'success', result);
+      return res.status(201).json({
+        code: 201,
+        status: 'success',
+        message: 'Data created',
+        data: result
+      });
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
