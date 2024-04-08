@@ -838,6 +838,246 @@ paths:
                   data:
                     $ref: '#/components/schemas/Orders'
 
+  /agendas:
+    get:
+      summary: Get all agendas
+      description: Get all agendas
+      tags:
+        - Agenda API
+      responses:
+        '200':
+          description: 'get all agendas'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        status:
+                          type: string
+                        title:
+                          type: string
+                        description:
+                          type: string
+                        createdAt:
+                          type: string
+                        updatedAt:
+                          type: string
+                        deadline:
+                          type: string
+    post:
+      summary: Create agenda
+      description: Create agenda
+      tags:
+        - Agenda API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                status:
+                  type: string
+                deadline:
+                  type: string
+                image:
+                  type: string
+      responses:
+        '200':
+          description: 'Success create agenda'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      title:
+                        type: string
+                      status:
+                        type: string
+                      description:
+                        type: string
+                      image:
+                        type: string
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                      deadline:
+                        type: string
+  /agendas/{agendaId}:
+    get:
+      summary: Get agenda by id
+      description: Get agenda by id
+      tags:
+        - Agenda API
+      parameters:
+        - name: agendaId
+          in: path
+          required: true
+          description: agenda id
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                status:
+                  type: string
+                deadline:
+                  type: string
+                image:
+                  type: string
+      responses:
+        '200':
+          description: 'Success get agenda by id'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      title:
+                        type: string
+                      status:
+                        type: string
+                      description:
+                        type: string
+                      image:
+                        type: string
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                      deadline:
+                        type: string
+    delete:
+      summary: delete comment by id
+      description: delete comment by id
+      tags:
+        - Agenda API
+      parameters:
+        - name: agendaId
+          in: path
+          required: true
+          description: agenda id
+          schema:
+            type: number
+      responses:
+        '200':
+          description: 'Success delete agenda by id'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+    put:
+      summary: update comment by id
+      description: update comment by id
+      tags:
+        - Agenda API
+      parameters:
+        - name: agendaId
+          in: path
+          required: true
+          description: agenda id
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                status:
+                  type: string
+                deadline:
+                  type: string
+                image:
+                  type: string
+      responses:
+        '200':
+          description: 'Success update agenda by id'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      title:
+                        type: string
+                      status:
+                        type: string
+                      description:
+                        type: string
+                      image:
+                        type: string
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                      deadline:
+                        type: string
 components:
   schemas:
     Forum:

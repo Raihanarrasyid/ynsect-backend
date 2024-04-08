@@ -30,10 +30,6 @@ class Agenda {
     });
     return agenda;
   }
-
-  async createManyData(data) {
-    return await prisma.agenda.createMany({ data });
-  }
 }
 
 module.exports = Agenda;
