@@ -13,20 +13,20 @@ class Agenda {
 
   async update(id, data) {
     return await prisma.agenda.update({
-      where: { id: parseInt(id) },
+      where: { id: id },
       data: data
     });
   }
 
   async delete(id) {
     return await prisma.agenda.delete({
-      where: { id: parseInt(id) }
+      where: { id: id }
     });
   }
 
   async getById(id) {
     const agenda = await prisma.agenda.findUnique({
-      where: { id: parseInt(id) }
+      where: { id: id }
     });
     return agenda;
   }

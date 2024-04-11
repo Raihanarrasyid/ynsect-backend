@@ -35,7 +35,7 @@ model Product {
   name        String
   price       Int
   stock       Int
-  description String?
+  description String? @db.Text
   summary     String?
   image       String?
   createdAt   DateTime @default(now())
