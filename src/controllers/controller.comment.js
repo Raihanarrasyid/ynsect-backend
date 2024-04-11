@@ -8,7 +8,7 @@ class CommentController {
     try {
       const forumId = parseInt(req.params.forumId);
       const result = await comment.getCommentByForumId(forumId);
-      return SuccessResponse.DataFound(res, 200, 'success', result);
+      return SuccessResponse.DataFound(req, res, 'success', result);
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
@@ -18,7 +18,7 @@ class CommentController {
     try {
       const data = req.body;
       const result = await comment.create(data);
-      return SuccessResponse.Created(res, 200, 'success', result);
+      return SuccessResponse.Created(req, res, 'success', result);
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
@@ -28,7 +28,7 @@ class CommentController {
     try {
       const commentId = parseInt(req.params.commentId);
       await comment.deleteComment(commentId);
-      return SuccessResponse.Created(res, 200, 'success', { message: 'Comment deleted' });
+      return SuccessResponse.OK(req, res, 'success', { message: 'Comment deleted' });
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
@@ -39,7 +39,7 @@ class CommentController {
       const commentId = parseInt(req.params.commentId);
       const data = req.body;
       await comment.updateComment(commentId, data);
-      return responseHelper(res, 200, 'success', { message: 'Comment updated' });
+      return SuccessResponse.Created(req, res, 'success', { message: 'Comment updated' });
     } catch (error) {
       return ErrorResponse.InternalServer(req, res, error.message);
     }
