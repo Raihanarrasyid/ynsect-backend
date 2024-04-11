@@ -61,6 +61,15 @@ class UserModel {
     });
   }
 
+  async update(userId, data) {
+    return await prisma.user.update({
+      where: {
+        id: parseInt(userId)
+      },
+      data: data
+    });
+  }
+
   async login(data) {
     const user = await prisma.user.findUnique({
       where: {

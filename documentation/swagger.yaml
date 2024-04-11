@@ -37,7 +37,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/User'
-  /user/{userId}:
+  /users/{userId}:
     get:
       summary: Get user by id
       description: Get user by id
@@ -53,6 +53,45 @@ paths:
       responses:
         '200':
           description: 'Success get user by id'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/User'
+    put:
+      summary: Update user by id
+      description: Update user by id
+      tags:
+        - User API
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: user id
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                phone:
+                  type: string
+                address:
+                  type: string
+      responses:
+        '200':
+          description: 'Success update user by id'
           content:
             application/json:
               schema:

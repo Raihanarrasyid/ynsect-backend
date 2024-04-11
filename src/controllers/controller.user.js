@@ -49,6 +49,22 @@ class UserController {
     }
   }
 
+  static async updateData(req, res) {
+    try {
+      const userId = req.params.userId;
+      const data = req.body;
+      const { error } = await Validation.registerUser(data);
+      if (error) {
+        return ErrorResponse.BadRequest(req, res, error.details[0].message);
+      }
+      const updateData = { ...data, updatedAt: new Date() };
+      const result = await user.update(userId, updateData);
+      return SuccessResponse.DataFound(req, res, 'Data updated', result);
+    } catch (error) {
+      return ErrorResponse.InternalServer(req, res, error.message);
+    }
+  }
+
   static async login(req, res) {
     try {
       const data = req.body;

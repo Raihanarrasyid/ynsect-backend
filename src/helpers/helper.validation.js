@@ -13,6 +13,16 @@ class Validation {
     return schema.validate(data);
   }
 
+  static async updateUser(data) {
+    const schema = Joi.object({
+      name: Joi.string(),
+      phone: Joi.string(),
+      address: Joi.string()
+    });
+
+    return schema.validate(data);
+  }
+
   static async loginUser(data) {
     const schema = Joi.object({
       email: Joi.string().email().required(),
