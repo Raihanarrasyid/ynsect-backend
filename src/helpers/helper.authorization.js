@@ -11,6 +11,7 @@ const verifyToken = (token) => {
 
 const authCheck = (req, res, next) => {
   const token = req.headers.authorization;
+
   if (!token) {
     return response.Unauthorized(res, res, 'Unauthorized');
   }

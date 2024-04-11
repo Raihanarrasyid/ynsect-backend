@@ -24,7 +24,7 @@ class ForumModel {
   async create(data) {
     return await prisma.forum.create({
       data: {
-        content: data.question,
+        content: data.content,
         userId: data.userId
       }
     });
@@ -34,6 +34,19 @@ class ForumModel {
     const forum = await prisma.forum.findUnique({
       where: {
         id: parseInt(forumId)
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            email: true,
+            name: true,
+            phone: true,
+            address: true,
+            createdAt: true,
+            updatedAt: true
+          }
+        }
       }
     });
     return forum;

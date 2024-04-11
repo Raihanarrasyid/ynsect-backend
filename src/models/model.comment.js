@@ -12,6 +12,14 @@ class CommentModel {
     return await prisma.comment.findMany({
       where: {
         forumId: parseInt(forumId)
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true
+          }
+        }
       }
     });
   }
