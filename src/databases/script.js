@@ -45,7 +45,7 @@ addProduct(
   32000,
   100,
   'Alternatif pakan pengganti bagi ternak dan hewan peliharaan Anda.',
-  `<p>[Summary]: Protein BSF Larva</p>
+  `<p>Protein BSF Larva</p>
   <ul>
   <li>Kualitas Unggulan : Kaya akan protein berkualitas tinggi yang dibutuhkan untuk pertumbuhan dan pemeliharaan tubuh.</li>
   <li>Formula Kaya Nutrisi : Dirancang khusus untuk memberikan asupan protein optimal bagi hewan peliharaan atau ternak Anda.</li>
@@ -61,7 +61,7 @@ addProduct(
   32000,
   100,
   'Hasil olahan larva yang diperas menghasilkan minyak lemak berkualitas',
-  `<p>[Summary]: Protein BSF Larva</p>
+  `<p>Protein BSF Larva</p>
   <ul>
   <li>Kualitas Unggulan : Kaya akan protein berkualitas tinggi yang dibutuhkan untuk pertumbuhan dan pemeliharaan tubuh.</li>
   <li>Formula Kaya Nutrisi : Dirancang khusus untuk memberikan asupan protein optimal bagi hewan peliharaan atau ternak Anda.</li>
@@ -77,7 +77,7 @@ addProduct(
   32000,
   100,
   'Larva hidup yang dicuci bersih dapat meningkatkan pertumbuhan hewan.',
-  `<p>[Summary]: Protein BSF Larva</p>
+  `<p>Protein BSF Larva</p>
   <ul>
   <li>Kualitas Unggulan : Kaya akan protein berkualitas tinggi yang dibutuhkan untuk pertumbuhan dan pemeliharaan tubuh.</li>
   <li>Formula Kaya Nutrisi : Dirancang khusus untuk memberikan asupan protein optimal bagi hewan peliharaan atau ternak Anda.</li>
@@ -93,7 +93,7 @@ addProduct(
   32000,
   100,
   'Alternatif pakan sehat pengganti bagi ikan peliharaan Anda',
-  `<p>[Summary]: Protein BSF Larva</p>
+  `<p>Protein BSF Larva</p>
   <ul>
   <li>Kualitas Unggulan : Kaya akan protein berkualitas tinggi yang dibutuhkan untuk pertumbuhan dan pemeliharaan tubuh.</li>
   <li>Formula Kaya Nutrisi : Dirancang khusus untuk memberikan asupan protein optimal bagi hewan peliharaan atau ternak Anda.</li>
@@ -109,7 +109,7 @@ addProduct(
   32000,
   100,
   'Hasil olahan larva mati yang diolah menjadi pupuk berkualitas untuk tanaman',
-  `<p>[Summary]: Protein BSF Larva</p>
+  `<p>Protein BSF Larva</p>
   <ul>
   <li>Kualitas Unggulan : Kaya akan protein berkualitas tinggi yang dibutuhkan untuk pertumbuhan dan pemeliharaan tubuh.</li>
   <li>Formula Kaya Nutrisi : Dirancang khusus untuk memberikan asupan protein optimal bagi hewan peliharaan atau ternak Anda.</li>
