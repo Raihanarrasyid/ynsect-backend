@@ -27,7 +27,7 @@ addProduct(
   32000,
   100,
   'Example product description.',
-  'https://example.com/product-image.jpg'
+  'https://res.cloudinary.com/ddp4vz8jq/image/upload/v1712825550/li7ednabfcllivkiojs3.png'
 );
 
 addProduct(
@@ -35,7 +35,7 @@ addProduct(
   32000,
   100,
   'Example product description.',
-  'https://example.com/product-image.jpg'
+  'https://res.cloudinary.com/ddp4vz8jq/image/upload/v1712825549/ccjibsz50mwxgflr8y69.png'
 );
 
 addProduct(
@@ -43,7 +43,7 @@ addProduct(
   32000,
   100,
   'Example product description.',
-  'https://example.com/product-image.jpg'
+  'https://res.cloudinary.com/ddp4vz8jq/image/upload/v1712825549/n4nrfhsllwncum0y1eap.png'
 );
 
 addProduct(
@@ -51,7 +51,7 @@ addProduct(
   32000,
   100,
   'Example product description.',
-  'https://example.com/product-image.jpg'
+  'https://res.cloudinary.com/ddp4vz8jq/image/upload/v1712825549/vhxxjvbskefyjapnclgc.png'
 );
 
 addProduct(
@@ -59,7 +59,7 @@ addProduct(
   32000,
   100,
   'Example product description.',
-  'https://example.com/product-image.jpg'
+  'https://res.cloudinary.com/ddp4vz8jq/image/upload/v1712825550/po2jb5tlbzosnjfcfeyl.png'
 );
 
 addProduct(
@@ -67,5 +67,5 @@ addProduct(
   32000,
   100,
   'Example product description.',
-  'https://example.com/product-image.jpg'
+  'https://res.cloudinary.com/ddp4vz8jq/image/upload/v1712825548/bsqimfbijqerstuend0g.png'
 );
