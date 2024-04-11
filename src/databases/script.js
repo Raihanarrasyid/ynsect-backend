@@ -28,7 +28,7 @@ addProduct(
   32000,
   100,
   'Sumber protein yang sempurna untuk ternak dan hewan peliharaan Anda.',
-  `<p>Larva BSF kering yang bervitamin dan bagus untuk kesehatan pakan:</p>
+  `<p>Larva BSF kering:</p>
   <ul>
   <li>Kualitas Unggulan: Produk larva kering yang kami jual adalah pilihan premium yang terjamin kualitasnya. Kami memastikan larva kami berasal dari sumber yang terpercaya dan diproses dengan standar kualitas tertinggi untuk memberikan produk terbaik kepada pelanggan.</li>
   <li>Formula Kaya Nutrisi: Larva kering kami diformulasikan khusus dengan tambahan vitamin dan mineral untuk memberikan nutrisi optimal kepada hewan peliharaan. Ini menjadikan produk kami pilihan utama bagi pemilik hewan yang peduli akan kesehatan dan kesejahteraan binatang peliharaan mereka.</li>
