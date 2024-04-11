@@ -33,7 +33,7 @@ const uploadMiddleware = (req, res, next) => {
         });
       }
 
-      req.fileUrl = result.url;
+      req.body.image = result.secure_url;
       next();
     });
   });
