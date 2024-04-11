@@ -15,7 +15,9 @@ const cartHelper = async (results, userId) => {
       name: productData.name,
       quantity: results[i].quantity,
       price: productData.price,
-      description: productData.description
+      description: productData.description,
+      stock: productData.stock,
+      image: productData.image
     });
     cartResponse.total_items += results[i].quantity;
     cartResponse.total_price += results[i].quantity * productData.price;
